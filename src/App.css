@@ -54,7 +54,7 @@ body {
 .container {
   width: 90vw;
   margin: 0 auto;
-  max-width: 1120px;
+  max-width: 1240px;
 }
 @media screen and (min-width: 992px) {
   .container {
@@ -155,3 +155,8 @@ h4 {
     font-size: 1.35rem;
   }
 }  */
+.icon {
+  display: grid;
+  place-items: center;
+  font-size: 1.45rem;
+}
