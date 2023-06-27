@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router";
-import { Header, Suggested, Navigation } from "../components";
+import { Header, Navigation, SuggestedUsers } from "../components";
 import "./Layout.css";
 const Layout = () => {
   return (
@@ -14,7 +14,7 @@ const Layout = () => {
           <Outlet />
         </div>
         <div className="right">
-          <Suggested />
+          <SuggestedUsers />
         </div>
       </main>
     </>

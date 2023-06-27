@@ -135,6 +135,7 @@ h4 {
   }
   h4 {
     font-size: 1rem;
+    margin-bottom: 0.25rem;
   }
 
   body {
@@ -159,4 +160,13 @@ h4 {
   display: grid;
   place-items: center;
   font-size: 1.45rem;
+}
+.user {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+.section-title {
+  margin-bottom: 0.25rem;
+  font-size: 1.25rem;
 }

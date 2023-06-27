@@ -1,0 +1,44 @@
+.post {
+  padding: var(--card-padding);
+  border-radius: var(--card-border-radius);
+  background-color: var(--color-white);
+  margin-bottom: 1rem;
+  /* font-size: 0.85rem; */
+  line-height: 1.5;
+}
+.post .head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+.post-image {
+  margin: 0.5rem 0;
+  border-radius: var(--card-border-radius);
+  overflow: hidden;
+}
+.action-button {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.75rem;
+  font-size: 1.5rem;
+}
+.interaction-buttons {
+  display: flex;
+  gap: 1rem;
+}
+/* .caption {
+  margin: 0.25rem 0;
+} */
+.readMore-btn {
+  color: var(--color-primary);
+  padding: 0;
+  background: transparent;
+  text-transform: capitalize;
+}
+@media screen and (min-width: 992px) {
+  .post {
+    margin-bottom: 1.5rem;
+  }
+}

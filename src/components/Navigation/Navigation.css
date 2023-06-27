@@ -18,12 +18,10 @@
   display: flex;
   gap: 1rem;
   padding: var(--card-padding);
-  /* padding: 0.85rem 1rem; */
   position: relative;
   transition: var(--transition);
   cursor: pointer;
   align-items: center;
-  /* justify-content: space-around; */
 }
 
 .nav-icon {
