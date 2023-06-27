@@ -37,7 +37,7 @@ const Navigation = () => {
               key={id}
             >
               <span className="icon nav-icon">{icon}</span>
-              <h3>{text}</h3>
+              <h3 className="nav-text">{text}</h3>
             </NavLink>
           );
         })}
