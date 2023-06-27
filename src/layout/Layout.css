@@ -1,0 +1,43 @@
+.main {
+  display: grid;
+  margin-top: 5rem;
+}
+.left {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+
+  z-index: 10;
+}
+.middle {
+  width: 100%;
+}
+.right {
+  width: 100%;
+}
+@media screen and (min-width: 992px) {
+  .main {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: 1fr;
+    column-gap: 2rem;
+  }
+  .right {
+    grid-column: 3/4;
+    grid-row: 1/2;
+    height: 80vh;
+  }
+  .left {
+    grid-row: 1/2;
+    position: static;
+    display: flex;
+    align-items: flex-start;
+    grid-column: 1/2;
+    z-index: 0;
+  }
+  .middle {
+    grid-row: 1/2;
+    height: 120vh;
+    grid-column: 2/3;
+  }
+}
