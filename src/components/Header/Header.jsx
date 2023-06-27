@@ -8,7 +8,7 @@ const Header = () => {
       <div className="container">
         <h3 className="logo">KONNECT</h3>
         <div className="search-bar">
-          <span className="search-icon">
+          <span className="icon">
             <BiSearchAlt2 />
           </span>
           <input type="search" placeholder="Search for users" />
