@@ -1,5 +1,7 @@
 import Navigation from "./Navigation/Navigation";
-import Feeds from "./Feeds/Feeds";
-import Suggested from "./Suggested/Suggested";
+import Feeds from "./Posts/Posts";
 import Header from "./Header/Header";
-export { Navigation, Feeds, Suggested, Header };
+import Posts from "./Posts/Posts";
+import Post from "./Post/Post";
+import SuggestedUsers from "./SuggestedUsers/SuggestedUsers";
+export { Navigation, Feeds, SuggestedUsers, Header, Posts, Post };
