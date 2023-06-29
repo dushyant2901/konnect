@@ -1,4 +1,5 @@
 import React from "react";
+import { MdAdd } from "react-icons/md";
 import "./SuggestedUser.css";
 const SuggestedUsers = () => {
   return (
@@ -12,12 +13,16 @@ const SuggestedUsers = () => {
             </div>
             <div className="info">
               <h4>dushyant</h4>
-              <small>15 minutes ago</small>
+              <small>@dushyantcodes</small>
             </div>
           </div>
           <div className="action">
-            <button className="btn btn-primary">Accept</button>
-            <button className="btn decline-btn">Decline</button>
+            <button className="btn btn-primary btn-small">
+              Follow
+              <span className="icon">
+                <MdAdd />
+              </span>
+            </button>
           </div>
         </article>
       </div>

@@ -104,6 +104,10 @@ img {
 .btn-block {
   width: 100%;
 }
+.btn-small {
+  padding: var(--search-padding);
+  line-height: 1.25;
+}
 .text-bold {
   font-weight: 500;
 }

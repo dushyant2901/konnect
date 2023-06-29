@@ -12,13 +12,17 @@
   padding: var(--card-padding);
   border-radius: var(--card-border-radius);
   margin-bottom: 0.75rem;
-}
-.suggested-user .info {
-  margin-bottom: 0.75rem;
-}
-.suggested-user .action {
   display: flex;
+  align-items: center;
   gap: 1rem;
+}
+.suggested-user .user {
+  margin-bottom: 0;
+}
+.suggested-user .action .btn {
+  display: flex;
+  gap: 0.15rem;
+  align-items: center;
 }
 .suggested-user .decline-btn {
   background: var(--color-white);
