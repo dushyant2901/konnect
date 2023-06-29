@@ -1,5 +1,5 @@
 import "./App.css";
-import { Bookmark, Explore, Home } from "./pages";
+import { Bookmark, Explore, Home, SignUp, Login } from "./pages";
 import "./normalize.css";
 import { Route, Routes } from "react-router-dom";
 import Layout from "./layout/Layout";
@@ -13,6 +13,8 @@ function App() {
           <Route path="explore" element={<Explore />} />
           <Route path="bookmark" element={<Bookmark />} />
         </Route>
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
       </Routes>
     </div>
   );
