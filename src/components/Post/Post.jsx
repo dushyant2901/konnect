@@ -13,15 +13,24 @@ import {
   MdOutlineThumbDownAlt,
 } from "react-icons/md";
 import "./Post.css";
+import { useData } from "../../context/DataContext";
 
-const Post = ({ profileImg, username, content, postImg, likes }) => {
+const Post = ({ profileImg, username, content, postImg, likes, _id }) => {
   console.log(postImg);
+  const { likePostHandler, dataDispatch, dislikePostHandler } = useData();
   const [readMore, setReadMore] = useState(false);
 
   const { likeCount, likedBy, dislikedBy } = likes;
 
   const handleReadMore = () => setReadMore(!readMore);
-
+  const handleLikeBtn = () => {
+    console.log("from like btn");
+    likePostHandler(_id, dataDispatch);
+  };
+  const handleDislikeBtn = () => {
+    console.log("from dislike btn");
+    dislikePostHandler(_id, dataDispatch);
+  };
   return (
     <article className="post">
       <header className="head">
@@ -52,10 +61,12 @@ const Post = ({ profileImg, username, content, postImg, likes }) => {
       </p>
       <div className="action-button">
         <div className="interaction-buttons">
-          <span className="icon">
+          <h3>{likeCount}</h3>
+          <span className="icon" onClick={handleLikeBtn}>
             <MdOutlineThumbUp />{" "}
           </span>
-          <span className="icon">
+
+          <span className="icon" onClick={handleDislikeBtn}>
             <MdOutlineThumbDown />
           </span>
           <span className="icon">
