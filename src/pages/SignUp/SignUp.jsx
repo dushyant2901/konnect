@@ -1,39 +1,41 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+
+import { Link, useNavigate } from "react-router-dom";
 import "./SignUp.css";
+import { signUpService } from "../../services/authService/signUpService";
 const SignUp = () => {
+  const [signUpDetails, setSignUpDetails] = useState({
+    name: "",
+    username: "",
+    password: "",
+  });
+  const navigate = useNavigate();
+  const handleSignUpDetails = (e) => {
+    const { name, value } = e.target;
+    setSignUpDetails({ ...signUpDetails, [name]: value });
+    // console.log(signUpDetails);
+  };
+  const signUpHandler = async (userdetails, navigate) => {
+    // const { username, password, name } = userdetails;
+    try {
+      const res = await signUpService({ ...userdetails });
+      console.log(res);
+      if (res.status === 201) {
+        localStorage.setItem("token", res.data.encodedToken);
+        const { username, name } = res.data.createdUser;
+        localStorage.setItem("userData", JSON.stringify({ username, name }));
+        navigate("/");
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const handleSignUpBtn = (e) => {
+    e.preventDefault();
+    signUpHandler({ ...signUpDetails }, navigate);
+  };
   return (
-    // <div>
-    //   <div class="signup-form">
-    //     <div class="title">Signup</div>
-    //     <form action="#">
-    //       <div class="input-boxes">
-    //         <div class="input-box">
-    //           <i class="fas fa-user"></i>
-    //           <input type="text" placeholder="Enter your name" required />
-    //         </div>
-    //         <div class="input-box">
-    //           <i class="fas fa-envelope"></i>
-    //           <input type="text" placeholder="Enter your email" required />
-    //         </div>
-    //         <div class="input-box">
-    //           <i class="fas fa-lock"></i>
-    //           <input
-    //             type="password"
-    //             placeholder="Enter your password"
-    //             required
-    //           />
-    //         </div>
-    //         <div class="button input-box">
-    //           <input type="submit" value="Sumbit" />
-    //         </div>
-    //         <div class="text sign-up-text">
-    //           Already have an account? <label for="flip">signup now</label>
-    //         </div>
-    //       </div>
-    //     </form>
-    //   </div>
-    // </div>
     <section className="signup">
       <article className="cover-image">
         <img src="./images/feed-2.jpg" alt="" />
@@ -42,27 +44,20 @@ const SignUp = () => {
         <form className="form">
           <h4 className="form-title">signup</h4>
           <div className="form-row">
-            <label htmlFor="fname" className="form-label">
+            <label htmlFor="name" className="form-label">
               Name
             </label>
             <input
               type="text"
               placeholder="type here"
-              id="fname"
+              id="name"
+              name="name"
               className="form-input"
+              value={signUpDetails.name}
+              onChange={handleSignUpDetails}
             />
           </div>
-          <div className="form-row">
-            <label htmlFor="lname" className="form-label">
-              Name
-            </label>
-            <input
-              type="text"
-              placeholder="type here"
-              id="lname"
-              className="form-input"
-            />
-          </div>
+
           <div className="form-row">
             <label htmlFor="username" className="form-label">
               Username
@@ -71,22 +66,13 @@ const SignUp = () => {
               type="text"
               placeholder="type here"
               id="username"
+              name="username"
               className="form-input"
+              value={signUpDetails.username}
+              onChange={handleSignUpDetails}
             />
           </div>
 
-          <div className="form-row">
-            <label htmlFor="email" className="form-label">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              className="form-input"
-              placeholder="Enter your email"
-            />
-            {/* <small className="form-alert">please provide value</small> */}
-          </div>
           <div className="form-row">
             <label htmlFor="password" className="form-label">
               Password
@@ -94,14 +80,21 @@ const SignUp = () => {
             <input
               type="password"
               id="password"
+              name="password"
               className="form-input"
               placeholder="Enter your password"
               required
+              value={signUpDetails.password}
+              onChange={handleSignUpDetails}
             />
             {/* <small className="form-alert">please provide value</small> */}
           </div>
 
-          <button type="submit" className="btn btn-block btn-primary">
+          <button
+            type="submit"
+            className="btn btn-block btn-primary"
+            onClick={handleSignUpBtn}
+          >
             submit
           </button>
           <p className="text login-text">
