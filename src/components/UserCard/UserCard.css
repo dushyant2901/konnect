@@ -1,0 +1,20 @@
+.user-card {
+  background: var(--color-light);
+  padding: var(--card-padding);
+  border-radius: var(--card-border-radius);
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.user-card .user {
+  margin-bottom: 0;
+}
+.user-card .action .btn {
+  display: flex;
+  gap: 0.15rem;
+  align-items: center;
+}
+.user-card .decline-btn {
+  background: var(--color-white);
+}
