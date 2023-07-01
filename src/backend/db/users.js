@@ -13,6 +13,7 @@ export const users = [
     password: "adarshBalika123",
     followers: [],
     following: [],
+    bookmarks: [],
     bio: "Add the bio",
     createdAt: formatDate(),
     updatedAt: formatDate(),
@@ -56,6 +57,7 @@ export const users = [
         username: "annuujj41",
       },
     ],
+    bookmarks: [],
     bio: "Mai to coder hoon",
 
     createdAt: formatDate(),
@@ -96,6 +98,7 @@ export const users = [
         username: "vidhushi19",
       },
     ],
+    bookmarks: [],
     bio: "Add the bio",
     createdAt: formatDate(),
     updatedAt: formatDate(),
@@ -107,7 +110,7 @@ export const users = [
     password: "vidhushi",
     followers: [],
     following: [],
-
+    bookmarks: [],
     bio: "Add the bio",
 
     createdAt: formatDate(),
@@ -120,6 +123,7 @@ export const users = [
     password: "sheldonGG",
     followers: [],
     following: [],
+    bookmarks: [],
     bio: "Mai to simp hoon mujhe kya... ",
 
     createdAt: formatDate(),
@@ -132,6 +136,7 @@ export const users = [
     password: "john889",
     followers: [],
     following: [],
+    bookmarks: [],
     bio: "still awake huh",
     createdAt: formatDate(),
     updatedAt: formatDate(),
