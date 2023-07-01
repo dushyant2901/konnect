@@ -31,7 +31,11 @@ const Post = ({
     dataDispatch,
     dislikePostHandler,
     deletePostHandler,
+    addToBookmarkHandler,
+    removeBookmarkHandler,
+    dataState,
   } = useData();
+  const { bookmarks } = dataState;
   const { user } = useAuth();
   const [readMore, setReadMore] = useState(false);
 
@@ -57,6 +61,12 @@ const Post = ({
   const handleDeleteBtn = () => {
     deletePostHandler(_id, dataDispatch);
   };
+  const handleAddBookmarkBtn = () => {
+    addToBookmarkHandler(_id, dataDispatch);
+  };
+  const handleRemoveBookmarkBtn = () => {
+    removeBookmarkHandler(_id, dataDispatch);
+  };
 
   const getTimeStamp = (createdAt) => {
     // const currentTime = dayjs();
@@ -66,6 +76,8 @@ const Post = ({
     //   : dayjs(createdAt).fromNow();
   };
   const isPostUserCurrentUser = (username, user) => username === user.username;
+  const isPostBookmarked = (bookmarks, postId) =>
+    bookmarks.some(({ _id }) => _id === postId);
   return (
     <article className="post">
       <header className="head">
@@ -137,9 +149,15 @@ const Post = ({
           </span>
         </div>
         <div className="bookmark">
-          <span className="icon">
-            <MdBookmarkBorder />
-          </span>
+          {isPostBookmarked(bookmarks, _id) ? (
+            <span className="icon" onClick={handleRemoveBookmarkBtn}>
+              <MdBookmark />
+            </span>
+          ) : (
+            <span className="icon" onClick={handleAddBookmarkBtn}>
+              <MdBookmarkBorder />
+            </span>
+          )}
         </div>
       </div>
     </article>

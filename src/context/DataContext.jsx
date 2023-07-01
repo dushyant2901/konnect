@@ -6,15 +6,23 @@ import {
   createPostService,
   deletePostService,
 } from "../services/appServices/postService";
+import {
+  addToBookmarkService,
+  removeBookmarkService,
+  getAllBookmarksService,
+} from "../services/appServices/bookmarkService";
 export const DataContext = createContext();
 
-const initialDataState = { posts: [] };
+const initialDataState = { posts: [], bookmarks: [] };
 const dataReducer = (state, action) => {
   const { type, payload } = action;
   switch (type) {
     case "SET_POSTS":
       console.log({ payload });
       return { ...state, posts: payload };
+    case "SET_BOOKMARKS":
+      console.log({ payload });
+      return { ...state, bookmarks: payload };
 
     default:
       break;
@@ -79,8 +87,31 @@ const DataProvider = ({ children }) => {
     }
     // add error handling for already liked
   };
+
+  const getAllBookmarks = async (dataDispatch) => {
+    const encodedToken = localStorage.getItem("token");
+    const res = await getAllBookmarksService(encodedToken);
+    if (res.status === 200) {
+      dataDispatch({ type: "SET_BOOKMARKS", payload: res.data.bookmarks });
+    }
+  };
+  const addToBookmarkHandler = async (postId) => {
+    const encodedToken = localStorage.getItem("token");
+    const res = await addToBookmarkService(postId, encodedToken);
+    if (res.status === 200) {
+      dataDispatch({ type: "SET_BOOKMARKS", payload: res.data.bookmarks });
+    }
+  };
+  const removeBookmarkHandler = async (postId) => {
+    const encodedToken = localStorage.getItem("token");
+    const res = await removeBookmarkService(postId, encodedToken);
+    if (res.status === 200) {
+      dataDispatch({ type: "SET_BOOKMARKS", payload: res.data.bookmarks });
+    }
+  };
   useEffect(() => {
     getAllPosts(dataDispatch);
+    getAllBookmarks(dataDispatch);
   }, []);
 
   return (
@@ -92,6 +123,8 @@ const DataProvider = ({ children }) => {
         dislikePostHandler,
         createPostHandler,
         deletePostHandler,
+        addToBookmarkHandler,
+        removeBookmarkHandler,
       }}
     >
       {children}
