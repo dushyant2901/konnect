@@ -12,6 +12,7 @@ const CreatePost = () => {
   };
   const handlePostBtn = (e) => {
     e.preventDefault();
+    // handle empty create post
     createPostHandler(postDetails, dataDispatch);
     setPostDetails(() => ({ content: "" }));
   };
