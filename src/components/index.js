@@ -4,4 +4,6 @@ import Header from "./Header/Header";
 import Posts from "./Posts/Posts";
 import Post from "./Post/Post";
 import SuggestedUsers from "./SuggestedUsers/SuggestedUsers";
-export { Navigation, Feeds, SuggestedUsers, Header, Posts, Post };
+import CreatePost from "./CreatePost/CreatePost";
+
+export { Navigation, Feeds, SuggestedUsers, Header, Posts, Post, CreatePost };

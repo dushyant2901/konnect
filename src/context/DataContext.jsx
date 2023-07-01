@@ -3,6 +3,7 @@ import {
   getPosts,
   likePostService,
   dislikePostService,
+  createPostService,
 } from "../services/appServices/postService";
 export const DataContext = createContext();
 
@@ -53,13 +54,31 @@ const DataProvider = ({ children }) => {
     }
     // add error handling for already liked
   };
+  const createPostHandler = async (postData, dataDispatch) => {
+    console.log("from create post handler");
+    const encodedToken = localStorage.getItem("token");
+    const res = await createPostService(postData, encodedToken);
+    console.log(encodedToken, res);
+    if (res.status === 201) {
+      console.log("from dislike post handler res");
+      console.log(res.data.posts, "poat");
+      dataDispatch({ type: "SET_POSTS", payload: res.data.posts });
+    }
+    // add error handling for already liked
+  };
   useEffect(() => {
     getAllPosts(dataDispatch);
   }, []);
 
   return (
     <DataContext.Provider
-      value={{ dataState, dataDispatch, likePostHandler, dislikePostHandler }}
+      value={{
+        dataState,
+        dataDispatch,
+        likePostHandler,
+        dislikePostHandler,
+        createPostHandler,
+      }}
     >
       {children}
     </DataContext.Provider>

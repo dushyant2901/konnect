@@ -1,28 +1,39 @@
 import React, { useState } from "react";
+import dayjs from "dayjs";
 import {
   MdBookmarkBorder,
   MdBookmark,
   MdEdit,
-  MdFavorite,
-  MdFavoriteBorder,
   MdShare,
   MdComment,
   MdThumbUp,
+  MdThumbDown,
   MdOutlineThumbUp,
   MdOutlineThumbDown,
   MdOutlineThumbDownAlt,
 } from "react-icons/md";
 import "./Post.css";
 import { useData } from "../../context/DataContext";
+import { useAuth } from "../../context/AuthContext";
 
-const Post = ({ profileImg, username, content, postImg, likes, _id }) => {
-  console.log(postImg);
+const Post = ({
+  profileImg,
+  username,
+  content,
+  postImg,
+  likes,
+  _id,
+  createdAt,
+}) => {
+  // console.log({ content: content.length });
   const { likePostHandler, dataDispatch, dislikePostHandler } = useData();
+  const { user } = useAuth();
   const [readMore, setReadMore] = useState(false);
 
   const { likeCount, likedBy, dislikedBy } = likes;
 
   const handleReadMore = () => setReadMore(!readMore);
+
   const handleLikeBtn = () => {
     console.log("from like btn");
     likePostHandler(_id, dataDispatch);
@@ -30,6 +41,20 @@ const Post = ({ profileImg, username, content, postImg, likes, _id }) => {
   const handleDislikeBtn = () => {
     console.log("from dislike btn");
     dislikePostHandler(_id, dataDispatch);
+  };
+
+  const isPostLikedByCurrentUser = (user, likedByUsers) =>
+    likedByUsers.some(({ username }) => username === user.username);
+
+  const isPostDislikedByCurrentUser = (user, dislikedByUsers) =>
+    dislikedByUsers.some(({ username }) => username === user.username);
+
+  const getTimeStamp = (createdAt) => {
+    // const currentTime = dayjs();
+    // const difference = currentTime.diff(createdAt, "hours");
+    // return difference >= 24
+    //   ? dayjs(createdAt).format("D MMM")
+    //   : dayjs(createdAt).fromNow();
   };
   return (
     <article className="post">
@@ -40,7 +65,7 @@ const Post = ({ profileImg, username, content, postImg, likes, _id }) => {
           </div>
           <div className="info">
             <h4>{username}</h4>
-            <small>15 minutes ago</small>
+            <small>{getTimeStamp(createdAt)} ago</small>
           </div>
         </div>
         <span className="edit icon">
@@ -54,21 +79,35 @@ const Post = ({ profileImg, username, content, postImg, likes, _id }) => {
       )}
 
       <p className="caption">
-        {readMore ? content : `${content.substring(0, 300)}...`}
-        <button onClick={handleReadMore} className="btn readMore-btn">
-          {readMore ? "show less" : "  read more"}
-        </button>
+        {readMore ? content : `${content.substring(0, 300)}`}
+        {!readMore && content.length >= 300 && "...."}
+        {content.length >= 300 && (
+          <button onClick={handleReadMore} className="btn readMore-btn">
+            {readMore ? "show less" : "read more"}
+          </button>
+        )}
       </p>
       <div className="action-button">
         <div className="interaction-buttons">
           <h3>{likeCount}</h3>
-          <span className="icon" onClick={handleLikeBtn}>
-            <MdOutlineThumbUp />{" "}
-          </span>
-
-          <span className="icon" onClick={handleDislikeBtn}>
-            <MdOutlineThumbDown />
-          </span>
+          {isPostLikedByCurrentUser(user, likedBy) ? (
+            <span className="icon" onClick={handleLikeBtn}>
+              <MdThumbUp />{" "}
+            </span>
+          ) : (
+            <span className="icon" onClick={handleLikeBtn}>
+              <MdOutlineThumbUp />{" "}
+            </span>
+          )}
+          {isPostDislikedByCurrentUser(user, dislikedBy) ? (
+            <span className="icon" onClick={handleDislikeBtn}>
+              <MdThumbDown />
+            </span>
+          ) : (
+            <span className="icon" onClick={handleDislikeBtn}>
+              <MdOutlineThumbDown />
+            </span>
+          )}
           <span className="icon">
             <MdComment />
           </span>
