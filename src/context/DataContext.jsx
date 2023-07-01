@@ -4,6 +4,7 @@ import {
   likePostService,
   dislikePostService,
   createPostService,
+  deletePostService,
 } from "../services/appServices/postService";
 export const DataContext = createContext();
 
@@ -66,6 +67,18 @@ const DataProvider = ({ children }) => {
     }
     // add error handling for already liked
   };
+  const deletePostHandler = async (postId, dataDispatch) => {
+    console.log("from create post handler");
+    const encodedToken = localStorage.getItem("token");
+    const res = await deletePostService(postId, encodedToken);
+    console.log(encodedToken, res);
+    if (res.status === 201) {
+      console.log("from delete post handler res");
+      console.log(res.data.posts, "poat");
+      dataDispatch({ type: "SET_POSTS", payload: res.data.posts });
+    }
+    // add error handling for already liked
+  };
   useEffect(() => {
     getAllPosts(dataDispatch);
   }, []);
@@ -78,6 +91,7 @@ const DataProvider = ({ children }) => {
         likePostHandler,
         dislikePostHandler,
         createPostHandler,
+        deletePostHandler,
       }}
     >
       {children}

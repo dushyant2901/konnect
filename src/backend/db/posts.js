@@ -40,7 +40,20 @@ export const posts = [
       " Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.",
     likes: {
       likeCount: 0,
-      dislikeCount: 0,
+
+      likedBy: [],
+      dislikedBy: [],
+    },
+    username: "dushyantcodes",
+    createdAt: formatDate(),
+    updatedAt: formatDate(),
+  },
+  {
+    _id: 2,
+    content: "aaaaa",
+    likes: {
+      likeCount: 0,
+
       likedBy: [],
       dislikedBy: [],
     },

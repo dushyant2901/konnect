@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import dayjs from "dayjs";
 import {
   MdBookmarkBorder,
   MdBookmark,
@@ -11,6 +10,7 @@ import {
   MdOutlineThumbUp,
   MdOutlineThumbDown,
   MdOutlineThumbDownAlt,
+  MdDelete,
 } from "react-icons/md";
 import "./Post.css";
 import { useData } from "../../context/DataContext";
@@ -26,7 +26,12 @@ const Post = ({
   createdAt,
 }) => {
   // console.log({ content: content.length });
-  const { likePostHandler, dataDispatch, dislikePostHandler } = useData();
+  const {
+    likePostHandler,
+    dataDispatch,
+    dislikePostHandler,
+    deletePostHandler,
+  } = useData();
   const { user } = useAuth();
   const [readMore, setReadMore] = useState(false);
 
@@ -49,6 +54,10 @@ const Post = ({
   const isPostDislikedByCurrentUser = (user, dislikedByUsers) =>
     dislikedByUsers.some(({ username }) => username === user.username);
 
+  const handleDeleteBtn = () => {
+    deletePostHandler(_id, dataDispatch);
+  };
+
   const getTimeStamp = (createdAt) => {
     // const currentTime = dayjs();
     // const difference = currentTime.diff(createdAt, "hours");
@@ -56,6 +65,7 @@ const Post = ({
     //   ? dayjs(createdAt).format("D MMM")
     //   : dayjs(createdAt).fromNow();
   };
+  const isPostUserCurrentUser = (username, user) => username === user.username;
   return (
     <article className="post">
       <header className="head">
@@ -68,9 +78,20 @@ const Post = ({
             <small>{getTimeStamp(createdAt)} ago</small>
           </div>
         </div>
-        <span className="edit icon">
-          <MdEdit />
-        </span>
+        {isPostUserCurrentUser(username, user) ? (
+          <div>
+            <span className="edit icon" onClick={handleDeleteBtn}>
+              <MdDelete />
+            </span>
+            <span className="edit icon">
+              <MdEdit />
+            </span>
+          </div>
+        ) : (
+          <span className="edit icon">
+            <MdEdit />
+          </span>
+        )}
       </header>
       {postImg && (
         <div className="post-image">
