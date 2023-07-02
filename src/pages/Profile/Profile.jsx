@@ -2,7 +2,7 @@ import React, { useEffect, useId, useState } from "react";
 import { getUserService } from "../../services/appServices/userService";
 import { useParams } from "react-router";
 import { getUserPostsService } from "../../services/appServices/postService";
-import { Following, Posts, ProfileCard } from "../../components";
+import { Following, Posts, ProfileCard, Tabs } from "../../components";
 import { useData } from "../../context/DataContext";
 
 const Profile = () => {
@@ -65,9 +65,11 @@ const Profile = () => {
   return (
     <div>
       <ProfileCard user={userProfile} />
-      <Posts posts={userPosts} />
-      <Following following users={following} />
-      <Following users={followers} />
+      <Tabs
+        posts={<Posts posts={userPosts} />}
+        followers={<Following users={followers} />}
+        following={<Following following users={following} />}
+      />
     </div>
   );
 };

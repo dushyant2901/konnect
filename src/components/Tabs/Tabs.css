@@ -1,0 +1,17 @@
+.tab-container {
+  display: flex;
+  width: 100%;
+  margin: 1rem 0;
+  border-radius: var(--card-border-radius);
+  overflow: hidden;
+}
+.tab-btn {
+  background: var(--color-white);
+  flex: 1;
+  text-transform: capitalize;
+  border-radius: 0;
+}
+.active-tab-btn {
+  background: var(--color-primary);
+  color: white;
+}
