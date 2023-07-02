@@ -1,5 +1,7 @@
 import axios from "axios";
 export const getPosts = async () => await axios.get("/api/posts");
+export const getUserPostsService = async (userId) =>
+  await axios.get(`/api/posts/user/${userId}`);
 export const likePostService = async (postId, token) =>
   await axios.post(
     `/api/posts/like/${postId}`,

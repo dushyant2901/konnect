@@ -6,6 +6,7 @@ import Post from "./Post/Post";
 import SuggestedUsers from "./SuggestedUsers/SuggestedUsers";
 import CreatePost from "./CreatePost/CreatePost";
 import ProfileCard from "./ProfileCard/ProfileCard";
+import Following from "./Following/Following";
 export {
   Navigation,
   Feeds,
@@ -15,4 +16,5 @@ export {
   Post,
   CreatePost,
   ProfileCard,
+  Following,
 };

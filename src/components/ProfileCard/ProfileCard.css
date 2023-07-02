@@ -1,0 +1,21 @@
+.profile-card {
+  background-color: var(--color-white);
+  padding: var(--card-padding);
+  border-radius: var(--card-border-radius);
+  margin-bottom: 1rem;
+}
+
+.profile-card .profile-photo {
+  width: 6rem;
+  background: pink;
+}
+.profile-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.following-info {
+  display: flex;
+  gap: 2rem;
+}

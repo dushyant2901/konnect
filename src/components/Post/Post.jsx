@@ -15,6 +15,7 @@ import {
 import "./Post.css";
 import { useData } from "../../context/DataContext";
 import { useAuth } from "../../context/AuthContext";
+import { Link } from "react-router-dom";
 
 const Post = ({
   profileImg,
@@ -23,6 +24,7 @@ const Post = ({
   postImg,
   likes,
   _id,
+  userId,
   createdAt,
 }) => {
   // console.log({ content: content.length });
@@ -82,9 +84,11 @@ const Post = ({
     <article className="post">
       <header className="head">
         <div className="user">
-          <div className="profile-photo">
-            <img src={profileImg} alt="profile" />
-          </div>
+          <Link to={`/profile/${userId}`}>
+            <div className="profile-photo">
+              <img src={profileImg} alt="profile" />
+            </div>
+          </Link>
           <div className="info">
             <h4>{username}</h4>
             <small>{getTimeStamp(createdAt)} ago</small>
