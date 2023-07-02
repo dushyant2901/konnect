@@ -5,5 +5,14 @@ import Posts from "./Posts/Posts";
 import Post from "./Post/Post";
 import SuggestedUsers from "./SuggestedUsers/SuggestedUsers";
 import CreatePost from "./CreatePost/CreatePost";
-
-export { Navigation, Feeds, SuggestedUsers, Header, Posts, Post, CreatePost };
+import ProfileCard from "./ProfileCard/ProfileCard";
+export {
+  Navigation,
+  Feeds,
+  SuggestedUsers,
+  Header,
+  Posts,
+  Post,
+  CreatePost,
+  ProfileCard,
+};

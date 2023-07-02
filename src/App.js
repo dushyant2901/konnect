@@ -1,5 +1,5 @@
 import "./App.css";
-import { Bookmark, Explore, Home, SignUp, Login } from "./pages";
+import { Bookmark, Explore, Home, SignUp, Login, Profile } from "./pages";
 import "./normalize.css";
 import { Route, Routes } from "react-router-dom";
 import Layout from "./layout/Layout";
@@ -12,6 +12,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="explore" element={<Explore />} />
           <Route path="bookmark" element={<Bookmark />} />
+          <Route path="profile/:userId" element={<Profile />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />

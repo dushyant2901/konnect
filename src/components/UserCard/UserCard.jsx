@@ -1,9 +1,10 @@
 import React from "react";
 import { MdAdd } from "react-icons/md";
+import "./UserCard.css";
 const UserCard = ({ user }) => {
   const { name, username } = user;
   return (
-    <article className="suggested-user">
+    <article className="user-card">
       <div className="user">
         <div className="profile-photo">
           <img src="./images/profile-1.jpg" alt="profile" />
