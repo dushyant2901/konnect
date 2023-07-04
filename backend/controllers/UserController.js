@@ -22,7 +22,7 @@ export const getAllUsersHandler = function () {
 export const getUserHandler = function (schema, request) {
   const userId = request.params.userId;
   try {
-    const user = schema.users.findBy({ username: userId }).attrs;
+    const user = schema.users.findBy({ _id: userId }).attrs;
     return new Response(200, {}, { user });
   } catch (error) {
     return new Response(
@@ -56,6 +56,9 @@ export const editUserHandler = function (schema, request) {
       );
     }
     const { userData } = JSON.parse(request.requestBody);
+    console.log(
+      userData && userData.username && userData.username !== user.username
+    );
     if (userData && userData.username && userData.username !== user.username) {
       return new Response(
         404,
@@ -132,7 +135,7 @@ export const bookmarkPostHandler = function (schema, request) {
       );
     }
     const isBookmarked = user.bookmarks.some(
-      (currPostId) => currPostId === postId
+      (currPost) => currPost._id === postId
     );
     if (isBookmarked) {
       return new Response(
@@ -141,11 +144,18 @@ export const bookmarkPostHandler = function (schema, request) {
         { errors: ["This Post is already bookmarked"] }
       );
     }
-    user.bookmarks.push(post._id);
-    this.db.users.update(
-      { _id: user._id },
-      { ...user, updatedAt: formatDate() }
-    );
+    user.bookmarks.push({
+      _id: post._id,
+      username: post.username,
+      content: post.content,
+      createdAt: post.createdAt,
+      updatedAt: post.updatedAt,
+      likes: post.likes,
+    });
+    // this.db.users.update(
+    //   { _id: user._id },
+    //   { ...user, updatedAt: formatDate() }
+    // );
     return new Response(200, {}, { bookmarks: user.bookmarks });
   } catch (error) {
     return new Response(
@@ -179,13 +189,13 @@ export const removePostFromBookmarkHandler = function (schema, request) {
       );
     }
     const isBookmarked = user.bookmarks.some(
-      (currPostId) => currPostId === postId
+      (currPost) => currPost._id === postId
     );
     if (!isBookmarked) {
       return new Response(400, {}, { errors: ["Post not bookmarked yet"] });
     }
     const filteredBookmarks = user.bookmarks.filter(
-      (currPostId) => currPostId !== postId
+      (currPost) => currPost._id !== postId
     );
     user = { ...user, bookmarks: filteredBookmarks };
     this.db.users.update(
