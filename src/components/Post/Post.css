@@ -23,10 +23,15 @@
   justify-content: space-between;
   margin-top: 0.75rem;
   font-size: 1.5rem;
+  align-items: center;
 }
 .interaction-buttons {
   display: flex;
   gap: 1rem;
+  align-items: center;
+}
+.like-count {
+  margin-bottom: 0;
 }
 /* .caption {
   margin: 0.25rem 0;
@@ -36,6 +41,34 @@
   padding: 0;
   background: transparent;
   text-transform: capitalize;
+}
+.more-options {
+  position: relative;
+  background: white;
+}
+.more-options div {
+  box-shadow: var(--shadow-1);
+  position: absolute;
+  right: 0;
+  top: -30px;
+  border: 2px solid var(--color-light);
+  border-radius: 0.25rem;
+}
+.more-options button {
+  background: white;
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  font-size: 0.95rem;
+  padding: 0.5rem 0.25rem;
+  width: 100%;
+  border-bottom: 2px solid var(--color-light);
+}
+.more-options .icon {
+  font-size: inherit;
+}
+.more-icon.icon {
+  font-size: 1.5rem;
 }
 @media screen and (min-width: 992px) {
   .post {

@@ -1,21 +1,30 @@
 import React from "react";
 import "./Header.css";
 import { BiSearchAlt2 } from "react-icons/bi";
+import { Link } from "react-router-dom";
+import { useAuth } from "../../context";
 
 const Header = () => {
+  const { currentUser } = useAuth();
+  const { profileImg, _id } = currentUser ?? {};
+
   return (
     <header className="header">
       <div className="container">
-        <h3 className="logo">KONNECT</h3>
+        <Link to="/">
+          <h3 className="logo">KONNECT</h3>
+        </Link>
         <div className="search-bar">
           <span className="icon">
             <BiSearchAlt2 />
           </span>
           <input type="search" placeholder="Search for users" />
         </div>
-        <div className="profile-photo">
-          <img src="" alt="profile pic" className="img" />
-        </div>
+        <Link to={`profile/${_id}`}>
+          <div className="profile-photo">
+            <img src={profileImg} alt="profile pic" className="img" />
+          </div>
+        </Link>
       </div>
     </header>
   );

@@ -21,8 +21,8 @@ const ProfileCard = ({ user }) => {
       <a href="">portfolio link</a>
       <p>created at</p>
       <div className="following-info">
-        <p>{followers.length} followers</p>
-        <p>{following.length} following</p>
+        <p>{followers?.length} followers</p>
+        <p>{following?.length} following</p>
       </div>
     </article>
   );

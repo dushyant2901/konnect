@@ -1,47 +1,25 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
-import { useAuth } from "../../context/AuthContext";
-import { loginService } from "../../services/authService/loginService";
+import { useAuth } from "../..";
+
 const Login = () => {
   const [loginDetails, setLoginDetails] = useState({
     username: "",
     password: "",
   });
-  const navigate = useNavigate();
-  const { setUser, setUserLoggedIn } = useAuth();
+
+  const { loginHandler } = useAuth();
+
   const handleLoginDetails = (e) => {
     const { name, value } = e.target;
     setLoginDetails({ ...loginDetails, [name]: value });
   };
-  const loginHandler = async (
-    userDetails,
-    navigate,
-    setUser,
-    setUserLoggedIn
-  ) => {
-    const { username, password } = userDetails;
-    try {
-      const res = await loginService({ username, password });
-      console.log(res);
-      if (res.status === 200) {
-        localStorage.setItem("token", res.data.encodedToken);
-        const { username, name } = res.data.foundUser;
-        localStorage.setItem("userData", JSON.stringify({ username, name }));
-        setUser(() => ({
-          username,
-          name,
-        }));
-        setUserLoggedIn(true);
-        navigate("/");
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  };
+
   const handleLoginBtn = (e) => [
     e.preventDefault(),
-    loginHandler({ ...loginDetails }, navigate, setUser, setUserLoggedIn),
+    console.log({ loginDetails }),
+    loginHandler({ ...loginDetails }),
   ];
   return (
     <section className="login">
@@ -62,7 +40,7 @@ const Login = () => {
               name="username"
               className="form-input"
               placeholder="Enter your email"
-              value={loginDetails.userName}
+              value={loginDetails.username}
               onChange={handleLoginDetails}
             />
             {/* <small className="form-alert">please provide value</small> */}

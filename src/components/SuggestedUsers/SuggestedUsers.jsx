@@ -1,23 +1,24 @@
 import React from "react";
 
 import "./SuggestedUser.css";
-import { useUser } from "../../context/UserContext";
-import { useAuth } from "../../context/AuthContext";
+import { useUser, useAuth } from "../..";
 import UserCard from "../UserCard/UserCard";
+
 const SuggestedUsers = () => {
-  const {
-    userState: { users },
-  } = useUser();
-  const { user } = useAuth();
-  const nonFollowingUsers = users.filter(({ followers }) =>
-    followers.some(({ _id }) => _id !== user._id)
+  const { users } = useUser();
+  const { currentUser: user } = useAuth();
+
+  const nonFollowingUsers = users?.filter(
+    ({ followers, username }) =>
+      username !== user.username &&
+      !followers?.some(({ username }) => username === user.username)
   );
   return (
     <section className="suggested-users">
       <h3 className="section-title">Suggested Users</h3>
       <div className="suggested-users-container">
-        {nonFollowingUsers.map((user) => (
-          <UserCard user={user} />
+        {nonFollowingUsers?.map((user) => (
+          <UserCard user={user} key={user._id} />
         ))}
       </div>
     </section>

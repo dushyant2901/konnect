@@ -1,9 +1,10 @@
 import React from "react";
 import "./Home.css";
 import { CreatePost, Posts } from "../../components";
-import { useData } from "../../context/DataContext";
+
+import { usePost } from "../..";
 const Home = () => {
-  const { posts } = useData().dataState;
+  const { posts } = usePost();
   return (
     <>
       <CreatePost />

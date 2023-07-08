@@ -3,6 +3,7 @@ import { Bookmark, Explore, Home, SignUp, Login, Profile } from "./pages";
 import "./normalize.css";
 import { Route, Routes } from "react-router-dom";
 import Layout from "./layout/Layout";
+import { deletePostService } from "./services/appServices/postService";
 
 function App() {
   return (

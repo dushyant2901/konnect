@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useData } from "../../context/DataContext";
 import "./CreatePost.css";
+import { usePost } from "../..";
 const CreatePost = () => {
-  const { dataDispatch, createPostHandler } = useData();
+  const { createPostHandler } = usePost();
   const [postDetails, setPostDetails] = useState({
     content: "",
   });
@@ -13,7 +13,7 @@ const CreatePost = () => {
   const handlePostBtn = (e) => {
     e.preventDefault();
     // handle empty create post
-    createPostHandler(postDetails, dataDispatch);
+    createPostHandler(postDetails);
     setPostDetails(() => ({ content: "" }));
   };
   return (

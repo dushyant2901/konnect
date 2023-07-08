@@ -6,16 +6,14 @@ import {
   MdShare,
   MdComment,
   MdThumbUp,
-  MdThumbDown,
   MdOutlineThumbUp,
-  MdOutlineThumbDown,
-  MdOutlineThumbDownAlt,
   MdDelete,
+  MdMoreVert,
 } from "react-icons/md";
 import "./Post.css";
-import { useData } from "../../context/DataContext";
-import { useAuth } from "../../context/AuthContext";
+
 import { Link } from "react-router-dom";
+import { useUser, useAuth, usePost } from "../..";
 
 const Post = ({
   profileImg,
@@ -27,59 +25,53 @@ const Post = ({
   userId,
   createdAt,
 }) => {
-  // console.log({ content: content.length });
-  const {
-    likePostHandler,
-    dataDispatch,
-    dislikePostHandler,
-    deletePostHandler,
-    addToBookmarkHandler,
-    removeBookmarkHandler,
-    dataState,
-  } = useData();
-  const { bookmarks } = dataState;
-  const { user } = useAuth();
+  const { likePostHandler, dislikePostHandler, deletePostHandler } = usePost();
+  const { addBookmarkHandler, removeBookmarkHandler, bookmarks } = useUser();
+  const { currentUser: user } = useAuth();
+  console.log({ user, username });
   const [readMore, setReadMore] = useState(false);
+  const [moreOptions, setMoreOptions] = useState(false);
 
-  const { likeCount, likedBy, dislikedBy } = likes;
+  const { likeCount, likedBy } = likes ?? {};
 
   const handleReadMore = () => setReadMore(!readMore);
 
   const handleLikeBtn = () => {
-    console.log("from like btn");
-    likePostHandler(_id, dataDispatch);
+    console.log(_id);
+    likePostHandler(_id);
   };
   const handleDislikeBtn = () => {
-    console.log("from dislike btn");
-    dislikePostHandler(_id, dataDispatch);
+    dislikePostHandler(_id);
   };
 
   const isPostLikedByCurrentUser = (user, likedByUsers) =>
-    likedByUsers.some(({ username }) => username === user.username);
-
-  const isPostDislikedByCurrentUser = (user, dislikedByUsers) =>
-    dislikedByUsers.some(({ username }) => username === user.username);
+    likedByUsers?.some(({ username }) => username === user.username);
 
   const handleDeleteBtn = () => {
-    deletePostHandler(_id, dataDispatch);
+    setMoreOptions(false);
+    deletePostHandler(_id);
+  };
+  const handleEditBtn = () => {
+    setMoreOptions(false);
   };
   const handleAddBookmarkBtn = () => {
-    addToBookmarkHandler(_id, dataDispatch);
+    console.log("gggggg", bookmarks);
+    addBookmarkHandler(_id);
   };
   const handleRemoveBookmarkBtn = () => {
-    removeBookmarkHandler(_id, dataDispatch);
+    removeBookmarkHandler(_id);
+  };
+  const handleMoreOptions = () => {
+    setMoreOptions(true);
   };
 
-  const getTimeStamp = (createdAt) => {
-    // const currentTime = dayjs();
-    // const difference = currentTime.diff(createdAt, "hours");
-    // return difference >= 24
-    //   ? dayjs(createdAt).format("D MMM")
-    //   : dayjs(createdAt).fromNow();
-  };
-  const isPostUserCurrentUser = (username, user) => username === user.username;
+  const isPostUserCurrentUser = (username, user) => username === user?.username;
+  // const isPostBookmarked = (bookmarks, postId) =>
+  //   bookmarks?.some(({ _id }) => _id === postId);
   const isPostBookmarked = (bookmarks, postId) =>
-    bookmarks.some(({ _id }) => _id === postId);
+    bookmarks?.some((id) => id === postId);
+
+  // TODO: close more option son click outside
   return (
     <article className="post">
       <header className="head">
@@ -91,22 +83,32 @@ const Post = ({
           </Link>
           <div className="info">
             <h4>{username}</h4>
-            <small>{getTimeStamp(createdAt)} ago</small>
+            <small>10 min ago</small>
           </div>
         </div>
-        {isPostUserCurrentUser(username, user) ? (
-          <div>
-            <span className="edit icon" onClick={handleDeleteBtn}>
-              <MdDelete />
-            </span>
-            <span className="edit icon">
-              <MdEdit />
-            </span>
+        {isPostUserCurrentUser(username, user) && (
+          <div className="more-options">
+            {moreOptions ? (
+              <div>
+                <button onClick={handleDeleteBtn}>
+                  <span className="icon">
+                    <MdDelete />
+                  </span>{" "}
+                  Delete
+                </button>
+                <button onClick={handleEditBtn}>
+                  <span className="icon">
+                    <MdEdit />
+                  </span>{" "}
+                  Edit
+                </button>{" "}
+              </div>
+            ) : (
+              <span className="more-icon icon" onClick={handleMoreOptions}>
+                <MdMoreVert />
+              </span>
+            )}
           </div>
-        ) : (
-          <span className="edit icon">
-            <MdEdit />
-          </span>
         )}
       </header>
       {postImg && (
@@ -116,9 +118,9 @@ const Post = ({
       )}
 
       <p className="caption">
-        {readMore ? content : `${content.substring(0, 300)}`}
-        {!readMore && content.length >= 300 && "...."}
-        {content.length >= 300 && (
+        {readMore ? content : `${content?.substring(0, 300)}`}
+        {!readMore && content?.length >= 300 && "...."}
+        {content?.length >= 300 && (
           <button onClick={handleReadMore} className="btn readMore-btn">
             {readMore ? "show less" : "read more"}
           </button>
@@ -126,9 +128,9 @@ const Post = ({
       </p>
       <div className="action-button">
         <div className="interaction-buttons">
-          <h3>{likeCount}</h3>
+          <h3 className="like-count">{likeCount}</h3>
           {isPostLikedByCurrentUser(user, likedBy) ? (
-            <span className="icon" onClick={handleLikeBtn}>
+            <span className="icon" onClick={handleDislikeBtn}>
               <MdThumbUp />{" "}
             </span>
           ) : (
@@ -136,15 +138,7 @@ const Post = ({
               <MdOutlineThumbUp />{" "}
             </span>
           )}
-          {isPostDislikedByCurrentUser(user, dislikedBy) ? (
-            <span className="icon" onClick={handleDislikeBtn}>
-              <MdThumbDown />
-            </span>
-          ) : (
-            <span className="icon" onClick={handleDislikeBtn}>
-              <MdOutlineThumbDown />
-            </span>
-          )}
+
           <span className="icon">
             <MdComment />
           </span>

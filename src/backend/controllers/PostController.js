@@ -89,7 +89,6 @@ export const createPostHandler = function (schema, request) {
       username: user.username,
       createdAt: formatDate(),
       updatedAt: formatDate(),
-      comments: [],
     };
     this.db.posts.insert(post);
     return new Response(201, {}, { posts: this.db.posts });
@@ -109,6 +108,7 @@ export const createPostHandler = function (schema, request) {
  * send POST Request at /api/posts/edit/:postId
  * body contains { postData }
  * */
+
 export const editPostHandler = function (schema, request) {
   const user = requiresAuth.call(this, request);
   try {
@@ -125,6 +125,7 @@ export const editPostHandler = function (schema, request) {
     }
     const postId = request.params.postId;
     const { postData } = JSON.parse(request.requestBody);
+    // console.log({postId,postData})
     let post = schema.posts.findBy({ _id: postId }).attrs;
     if (post.username !== user.username) {
       return new Response(

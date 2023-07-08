@@ -1,39 +1,26 @@
 import React, { useState } from "react";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./SignUp.css";
-import { signUpService } from "../../services/authService/signUpService";
+import { useAuth } from "../../";
+
 const SignUp = () => {
   const [signUpDetails, setSignUpDetails] = useState({
     name: "",
     username: "",
     password: "",
   });
-  const navigate = useNavigate();
-  const handleSignUpDetails = (e) => {
+  const handleSignUpFieldDetails = (e) => {
     const { name, value } = e.target;
     setSignUpDetails({ ...signUpDetails, [name]: value });
-    // console.log(signUpDetails);
   };
-  const signUpHandler = async (userdetails, navigate) => {
-    // const { username, password, name } = userdetails;
-    try {
-      const res = await signUpService({ ...userdetails });
-      console.log(res);
-      if (res.status === 201) {
-        localStorage.setItem("token", res.data.encodedToken);
-        const { username, name } = res.data.createdUser;
-        localStorage.setItem("userData", JSON.stringify({ username, name }));
-        navigate("/");
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
+
+  const { signUpHandler } = useAuth();
 
   const handleSignUpBtn = (e) => {
     e.preventDefault();
-    signUpHandler({ ...signUpDetails }, navigate);
+    console.log({ signUpDetails });
+    signUpHandler({ ...signUpDetails });
   };
   return (
     <section className="signup">
@@ -54,7 +41,7 @@ const SignUp = () => {
               name="name"
               className="form-input"
               value={signUpDetails.name}
-              onChange={handleSignUpDetails}
+              onChange={handleSignUpFieldDetails}
             />
           </div>
 
@@ -69,7 +56,7 @@ const SignUp = () => {
               name="username"
               className="form-input"
               value={signUpDetails.username}
-              onChange={handleSignUpDetails}
+              onChange={handleSignUpFieldDetails}
             />
           </div>
 
@@ -85,7 +72,7 @@ const SignUp = () => {
               placeholder="Enter your password"
               required
               value={signUpDetails.password}
-              onChange={handleSignUpDetails}
+              onChange={handleSignUpFieldDetails}
             />
             {/* <small className="form-alert">please provide value</small> */}
           </div>

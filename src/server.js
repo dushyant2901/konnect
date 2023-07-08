@@ -25,6 +25,10 @@ import {
   unfollowUserHandler,
   editUserHandler,
 } from "./backend/controllers/UserController";
+import {
+  addPostCommentHandler,
+  deletePostCommentHandler,
+} from "./backend/controllers/CommentsController";
 
 export function makeServer({ environment = "development" } = {}) {
   return new Server({
@@ -43,10 +47,12 @@ export function makeServer({ environment = "development" } = {}) {
       server.logging = false;
       users.forEach((item) =>
         server.create("user", {
+          followers: [],
+          following: [],
+          bookmarks: [],
+          comments: [],
+          profilePic: "",
           ...item,
-          // followers: [],
-          // following: [],
-          // bookmarks: [],
         })
       );
       posts.forEach((item) => server.create("post", { ...item }));
@@ -61,7 +67,7 @@ export function makeServer({ environment = "development" } = {}) {
       // post routes (public)
       this.get("/posts", getAllpostsHandler.bind(this));
       this.get("/posts/:postId", getPostHandler.bind(this));
-      this.get("/posts/user/:userId", getAllUserPostsHandler.bind(this));
+      this.get("/posts/user/:username", getAllUserPostsHandler.bind(this));
 
       // post routes (private)
       this.post("/posts", createPostHandler.bind(this));
@@ -69,6 +75,11 @@ export function makeServer({ environment = "development" } = {}) {
       this.post("/posts/edit/:postId", editPostHandler.bind(this));
       this.post("/posts/like/:postId", likePostHandler.bind(this));
       this.post("/posts/dislike/:postId", dislikePostHandler.bind(this));
+      this.post("/comments/add/:postId", addPostCommentHandler.bind(this));
+      this.delete(
+        "/comments/delete/:postId/:commentId",
+        deletePostCommentHandler.bind(this)
+      );
 
       // user routes (public)
       this.get("/users", getAllUsersHandler.bind(this));

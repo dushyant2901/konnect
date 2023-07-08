@@ -1,8 +1,7 @@
 import React from "react";
-// import { feeds as posts } from "../../data/feeds";
 import Post from "../Post/Post";
 
-const Posts = ({ posts }) => {
+const Posts = ({ posts = [] }) => {
   return (
     <section className="posts">
       {posts.length === 0 && <h4>No Posts To Display</h4>}

@@ -1,11 +1,18 @@
 import React from "react";
 import { Posts } from "../../components";
-import { useData } from "../../context/DataContext";
+import { useUser, usePost } from "../../context";
 const Bookmark = () => {
-  const { bookmarks } = useData().dataState;
+  const { bookmarks } = useUser();
+  const { posts } = usePost();
+  console.log({ posts });
+  const bookmarksData = bookmarks.reverse().map((id) => {
+    return posts.find(({ _id }) => _id === id);
+  });
+  console.log({ bookmarksData });
   return (
     <div>
-      <Posts posts={bookmarks} />
+      {" "}
+      <Posts posts={bookmarksData} />{" "}
     </div>
   );
 };

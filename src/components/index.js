@@ -8,6 +8,7 @@ import CreatePost from "./CreatePost/CreatePost";
 import ProfileCard from "./ProfileCard/ProfileCard";
 import Following from "./Following/Following";
 import Tabs from "./Tabs/Tabs";
+import UserCard from "./UserCard/UserCard";
 export {
   Navigation,
   Feeds,
@@ -19,4 +20,5 @@ export {
   ProfileCard,
   Following,
   Tabs,
+  UserCard,
 };
