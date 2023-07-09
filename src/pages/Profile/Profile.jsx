@@ -38,8 +38,7 @@ const Profile = () => {
   //   setUserPosts(posts.filter(({ userId: id }) => userId === id));
   // }, [posts]);
   const userPosts = posts.filter(({ userId: id }) => id === userId);
-  console.log({ userPosts });
-  console.log({ singleuser: user });
+
   if (isLoading) {
     return <h4>loading......</h4>;
   }
@@ -51,7 +50,7 @@ const Profile = () => {
       <Tabs
         posts={<Posts posts={userPosts} />}
         followers={<Following users={followers} />}
-        following={<Following following users={following} />}
+        following={<Following isTypeFollowing users={following} />}
       />
     </div>
   );

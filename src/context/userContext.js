@@ -12,8 +12,10 @@ import {
   getAllBookmarksService,
 } from "../services/appServices/bookmarkService";
 import {
+  followUserService,
   getAllUsersService,
   getUserByUserIdService,
+  unfollowUserService,
 } from "../services/appServices/usersService";
 import { actionTypes } from "../utils/constants";
 import { useAuth } from "./authContext";
@@ -24,6 +26,10 @@ const {
   GET_ALL_BOOKMARKS,
   REMOVE_BOOKMARK,
   ADD_BOOKMARK,
+  ADD_FOLLOWER,
+  ADD_FOLLOWING,
+  REMOVE_FOLLOWING,
+  REMOVE_FOLLOWER,
 } = actionTypes;
 
 const initialUserState = {
@@ -62,7 +68,6 @@ const UserProvider = ({ children }) => {
         data: { user },
       } = await getUserByUserIdService(userId);
       if (status === 200) {
-        console.log("first hello", user);
         userDispatch({ type: GET_SINGLE_USER, payload: user });
       }
     } catch (error) {
@@ -94,7 +99,6 @@ const UserProvider = ({ children }) => {
         data: { bookmarks },
       } = await addBookmarkService(postId, token);
       if (status === 200) {
-        console.log("first vvvvvvvvvvvvvvvvvvv");
         userDispatch({ type: ADD_BOOKMARK, payload: bookmarks });
       }
     } catch (error) {
@@ -115,11 +119,70 @@ const UserProvider = ({ children }) => {
     }
   };
 
+  const followUserHandler = async (followUserId) => {
+    console.log({ followUserId });
+    try {
+      const {
+        status,
+        data: { user, followUser },
+      } = await followUserService(followUserId, token);
+      const _followUser = {
+        _id: followUser._id,
+        username: followUser.username,
+        name: followUser.name,
+        profilePic: followUser.profilePic,
+      };
+      const _user = {
+        _id: user._id,
+        username: user.username,
+        name: user.name,
+        profilePic: user.profilePic,
+      };
+      if (status === 200 || status === 201) {
+        userDispatch({
+          type: ADD_FOLLOWING,
+          payload: { _followUser, _user },
+        });
+        userDispatch({
+          type: ADD_FOLLOWER,
+          payload: { _user, _followUser },
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const unfollowUserHandler = async (unfollowUserId) => {
+    try {
+      const {
+        status,
+        data: { user, followUser: unfollowedUser },
+      } = await unfollowUserService(unfollowUserId, token);
+
+      const _unfollowedUser = {
+        _id: unfollowedUser._id,
+        username: unfollowedUser.username,
+        name: unfollowedUser.name,
+        profilePic: unfollowedUser.profilePic,
+      };
+
+      if (status === 200 || status === 201) {
+        userDispatch({ type: REMOVE_FOLLOWING, payload: user });
+        userDispatch({
+          type: REMOVE_FOLLOWER,
+          payload: _unfollowedUser,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     getAllBookmarks();
     getAllUsers();
   }, []);
-  console.log("book", userState.bookmarks);
   return (
     <UserContext.Provider
       value={{
@@ -129,6 +192,8 @@ const UserProvider = ({ children }) => {
         getUserByUserId,
         addBookmarkHandler,
         removeBookmarkHandler,
+        followUserHandler,
+        unfollowUserHandler,
       }}
     >
       {children}

@@ -1,9 +1,14 @@
 import React from "react";
-import { MdAdd } from "react-icons/md";
+import { MdAdd, MdRemove } from "react-icons/md";
 import "./UserCard.css";
-const UserCard = ({ user }) => {
-  const { name, username, profilePic } = user;
+import { useUser } from "../../context";
+const UserCard = ({ user, type }) => {
+  const { name, username, profilePic, _id } = user;
   console.log({ user, profilePic });
+  const { followUserHandler, unfollowUserHandler } = useUser();
+
+  const handleFollowBtn = () => followUserHandler(_id);
+  const handleUnfollowBtn = () => unfollowUserHandler(_id);
   return (
     <article className="user-card">
       <div className="user">
@@ -16,12 +21,27 @@ const UserCard = ({ user }) => {
         </div>
       </div>
       <div className="action">
-        <button className="btn btn-primary btn-small">
-          Follow
-          <span className="icon">
-            <MdAdd />
-          </span>
-        </button>
+        {type !== "followers" ? (
+          <button
+            className="btn btn-primary btn-small"
+            onClick={handleFollowBtn}
+          >
+            Follow
+            <span className="icon">
+              <MdAdd />
+            </span>
+          </button>
+        ) : (
+          <button
+            className="btn btn-primary btn-small"
+            onClick={handleUnfollowBtn}
+          >
+            Remove
+            <span className="icon">
+              <MdRemove />
+            </span>
+          </button>
+        )}
       </div>
     </article>
   );

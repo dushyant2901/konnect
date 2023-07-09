@@ -17,9 +17,13 @@ const SuggestedUsers = () => {
     <section className="suggested-users">
       <h3 className="section-title">Suggested Users</h3>
       <div className="suggested-users-container">
-        {nonFollowingUsers?.map((user) => (
-          <UserCard user={user} key={user._id} />
-        ))}
+        {nonFollowingUsers.length === 0 && (
+          <p>No more suggestions left as you followed everyone...</p>
+        )}
+        {nonFollowingUsers.length > 0 &&
+          nonFollowingUsers?.map((user) => (
+            <UserCard user={user} key={user._id} type="suggested" />
+          ))}
       </div>
     </section>
   );

@@ -42,6 +42,11 @@ export const users = [
         name: "Sheldon gupta",
         username: "sheldonG",
       },
+      {
+        _id: "e3af357e-450b-404a-b817-379224539694",
+        name: "Vidhushi Saxena",
+        username: "vidhushi19",
+      },
     ],
     following: [
       {
@@ -117,7 +122,14 @@ export const users = [
     username: "vidhushi19",
     password: "vidhushi",
     followers: [],
-    following: [],
+    following: [
+      {
+        _id: "a4f65f54-a598-42df-adb3-889984e0ec88",
+        name: "Dushyant Pratap Singh",
+        username: "dushyantcodes",
+        profilePic: "/images/profile-2.jpg",
+      },
+    ],
     bookmarks: [],
     bio: "Add the bio",
     profilePic: "/images/profile-4.jpg",
@@ -130,7 +142,14 @@ export const users = [
     username: "sheldonG",
     password: "sheldonGG",
     followers: [],
-    following: [],
+    following: [
+      {
+        _id: "a4f65f54-a598-42df-adb3-889984e0ec88",
+        name: "Dushyant Pratap Singh",
+        username: "dushyantcodes",
+        profilePic: "/images/profile-2.jpg",
+      },
+    ],
     bookmarks: [],
     bio: "Mai to simp hoon mujhe kya... ",
     profilePic: "/images/profile-5.jpg",
@@ -143,7 +162,14 @@ export const users = [
     username: "johndoe",
     password: "john889",
     followers: [],
-    following: [],
+    following: [
+      {
+        _id: "a4f65f54-a598-42df-adb3-889984e0ec88",
+        name: "Dushyant Pratap Singh",
+        username: "dushyantcodes",
+        profilePic: "/images/profile-2.jpg",
+      },
+    ],
     bookmarks: [],
     bio: "still awake huh",
     profilePic: "/images/profile-6.jpg",
