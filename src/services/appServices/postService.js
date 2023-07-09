@@ -17,7 +17,7 @@ const deletePostService = async (postId, encodedToken) =>
     headers: { authorization: encodedToken },
   });
 
-const editPostService = async (postId, content, encodedToken) =>
+const editPostService = async (postId, { content }, encodedToken) =>
   await axios.post(
     `/api/posts/edit/${postId}`,
     { postData: { content } },

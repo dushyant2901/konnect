@@ -9,6 +9,7 @@ import ProfileCard from "./ProfileCard/ProfileCard";
 import Following from "./Following/Following";
 import Tabs from "./Tabs/Tabs";
 import UserCard from "./UserCard/UserCard";
+import EditModal from "./EditModal/EditModal";
 export {
   Navigation,
   Feeds,
@@ -21,4 +22,5 @@ export {
   Following,
   Tabs,
   UserCard,
+  EditModal,
 };

@@ -6,6 +6,7 @@ const {
   CREATE_NEW_POST,
   DELETE_POST,
   EDIT_POST,
+  GET_SINGLE_POST,
 } = actionTypes;
 
 export const postReducer = (state, { type, payload }) => {
@@ -24,6 +25,8 @@ export const postReducer = (state, { type, payload }) => {
       return { ...state, posts: payload };
     case EDIT_POST:
       return { ...state, posts: payload };
+    case GET_SINGLE_POST:
+      return { ...state, post: payload };
     default:
       return state;
   }

@@ -16,7 +16,7 @@ import { Link } from "react-router-dom";
 import { useUser, useAuth, usePost } from "../..";
 
 const Post = ({
-  profileImg,
+  profilePic,
   username,
   content,
   postImg,
@@ -25,11 +25,20 @@ const Post = ({
   userId,
   createdAt,
 }) => {
-  const { likePostHandler, dislikePostHandler, deletePostHandler } = usePost();
+  const {
+    likePostHandler,
+    dislikePostHandler,
+    deletePostHandler,
+    setEditId,
+    openEditModal,
+  } = usePost();
+
   const { addBookmarkHandler, removeBookmarkHandler, bookmarks } = useUser();
+
   const { currentUser: user } = useAuth();
-  console.log({ user, username });
+
   const [readMore, setReadMore] = useState(false);
+
   const [moreOptions, setMoreOptions] = useState(false);
 
   const { likeCount, likedBy } = likes ?? {};
@@ -52,6 +61,7 @@ const Post = ({
     deletePostHandler(_id);
   };
   const handleEditBtn = () => {
+    openEditModal(_id);
     setMoreOptions(false);
   };
   const handleAddBookmarkBtn = () => {
@@ -78,7 +88,7 @@ const Post = ({
         <div className="user">
           <Link to={`/profile/${userId}`}>
             <div className="profile-photo">
-              <img src={profileImg} alt="profile" />
+              <img src={profilePic} alt="profile" />
             </div>
           </Link>
           <div className="info">

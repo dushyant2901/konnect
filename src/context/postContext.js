@@ -11,25 +11,33 @@ import {
   deletePostService,
   likePostService,
   dislikePostService,
+  getSinglePostService,
+  editPostService,
 } from "../services/appServices/postService";
 
 import { actionTypes } from "../utils/constants";
 import { useAuth } from "./authContext";
 import { postReducer } from "../reducers";
-const { GET_ALL_POSTS, LIKE_POST, DELETE_POST, DISLIKE_POST, CREATE_NEW_POST } =
-  actionTypes;
+const {
+  GET_ALL_POSTS,
+  LIKE_POST,
+  DELETE_POST,
+  DISLIKE_POST,
+  CREATE_NEW_POST,
+  GET_SINGLE_POST,
+  EDIT_POST,
+} = actionTypes;
 
 const PostContext = createContext();
 
-const initialPostState = { posts: [] };
+const initialPostState = { posts: [], post: null };
 
 const PostProvider = ({ children }) => {
   const [postState, postDispatch] = useReducer(postReducer, initialPostState);
-  console.log({ postState });
   const [isLoading, setIsLoading] = useState(false);
-
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editId, setEditId] = useState(null);
   const { token } = useAuth();
-  console.log({ token });
   const getAllPosts = async () => {
     setIsLoading(true);
     try {
@@ -74,13 +82,13 @@ const PostProvider = ({ children }) => {
       console.log(e);
     }
   };
-  const createPostHandler = async ({ content }) => {
+  const createPostHandler = async ({ content, postImg }) => {
     setIsLoading(true);
     try {
       const {
         status,
         data: { posts },
-      } = await createPostService({ content }, token);
+      } = await createPostService({ content, postImg }, token);
       if (status === 201) {
         postDispatch({ type: CREATE_NEW_POST, payload: posts });
       }
@@ -103,6 +111,40 @@ const PostProvider = ({ children }) => {
       console.error(error);
     }
   };
+  const getSinglePost = async (postId) => {
+    try {
+      const {
+        status,
+        data: { post },
+      } = await getSinglePostService(postId);
+      if (status === 200) {
+        console.log("lalala");
+        postDispatch({ type: GET_SINGLE_POST, payload: post });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const editPostHandler = async (postId, { content }) => {
+    try {
+      const {
+        status,
+        data: { posts },
+      } = await editPostService(postId, { content }, token);
+      if (status === 201) {
+        postDispatch({ type: EDIT_POST, payload: posts });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const openEditModal = (editId) => {
+    setIsEditModalOpen(true);
+    setEditId(editId);
+  };
+  const closeEditModal = () => setIsEditModalOpen(false);
 
   useEffect(() => {
     getAllPosts();
@@ -117,6 +159,13 @@ const PostProvider = ({ children }) => {
         dislikePostHandler,
         createPostHandler,
         deletePostHandler,
+        openEditModal,
+        closeEditModal,
+        getSinglePost,
+        setEditId,
+        editId,
+        isEditModalOpen,
+        editPostHandler,
       }}
     >
       {children}
