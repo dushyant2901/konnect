@@ -2,12 +2,13 @@ import React from "react";
 import { MdAdd } from "react-icons/md";
 import "./UserCard.css";
 const UserCard = ({ user }) => {
-  const { name, username, profileImg } = user;
+  const { name, username, profilePic } = user;
+  console.log({ user, profilePic });
   return (
     <article className="user-card">
       <div className="user">
         <div className="profile-photo">
-          <img src={profileImg} alt="profile" />
+          <img src={profilePic} alt="profile" />
         </div>
         <div className="info">
           <h4>{name}</h4>

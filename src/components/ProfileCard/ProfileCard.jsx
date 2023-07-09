@@ -1,12 +1,12 @@
 import React from "react";
 import "./ProfileCard.css";
 const ProfileCard = ({ user }) => {
-  const { username, name, profileImg, bio, followers, following } = user ?? {};
+  const { username, name, profilePic, bio, followers, following } = user ?? {};
   return (
     <article className="profile-card">
       <header className="profile-card-header">
         <div className="profile-photo">
-          <img src={profileImg} alt="profile" />
+          <img src={profilePic} alt="profile" />
         </div>
         <div className="action-btn">
           <button className="btn btn-primary btn-small">Edit Profile</button>

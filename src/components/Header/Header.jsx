@@ -6,7 +6,7 @@ import { useAuth } from "../../context";
 
 const Header = () => {
   const { currentUser } = useAuth();
-  const { profileImg, _id } = currentUser ?? {};
+  const { profilePic, _id } = currentUser ?? {};
 
   return (
     <header className="header">
@@ -22,7 +22,7 @@ const Header = () => {
         </div>
         <Link to={`profile/${_id}`}>
           <div className="profile-photo">
-            <img src={profileImg} alt="profile pic" className="img" />
+            <img src={profilePic} alt="profile pic" className="img" />
           </div>
         </Link>
       </div>
