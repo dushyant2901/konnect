@@ -9,6 +9,7 @@ const {
   ADD_FOLLOWING,
   REMOVE_FOLLOWING,
   REMOVE_FOLLOWER,
+  SEARCH_USER,
 } = actionTypes;
 
 export const userReducer = (state, { type, payload }) => {
@@ -86,12 +87,14 @@ export const userReducer = (state, { type, payload }) => {
               }
             : user
         ),
-        user: {
-          ...state.user,
-          following: payload.following,
-          // following: [...state?.user?.following, { ...followUser }],
-        },
+        // user: {
+        //   ...state.user,
+        //   following: payload.following,
+        //   // following: [...state?.user?.following, { ...followUser }],
+        // },
       };
+    case SEARCH_USER:
+      return { ...state, searchInput: payload };
     default:
       return state;
   }

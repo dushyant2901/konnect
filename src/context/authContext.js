@@ -17,15 +17,18 @@ const AuthProvider = ({ children }) => {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
+    setIsLoading(true)
     const currentLoggedInUser = JSON.parse(localStorage.getItem("userData"));
-    console.log({ currentLoggedInUser });
     if (currentLoggedInUser) {
+      console.log("first");
       setIsUserLoggedIn(true);
-      setCurrentUser(currentLoggedInUser);
+      setCurrentUser(() => currentLoggedInUser);
       navigate("/");
-      const localStorageToken = localStorage.getItem("token");
-      setToken(localStorageToken);
+      
+      // const localStorageToken = localStorage.getItem("token");
+      // setToken(localStorageToken);
     }
+    setIsLoading(false)
     // const initialLogInHandler = async () => {
     //   try {
     //     const { data: users } = await getAllUsersService();
@@ -49,6 +52,7 @@ const AuthProvider = ({ children }) => {
     //   initialLogInHandler();
     // }
   }, []);
+  console.log({ currentUser });
 
   const signUpHandler = async (userdetails) => {
     setIsLoading(true);

@@ -1,5 +1,13 @@
 import "./App.css";
-import { Bookmark, Explore, Home, SignUp, Login, Profile } from "./pages";
+import {
+  Bookmark,
+  Explore,
+  Home,
+  SignUp,
+  Login,
+  Profile,
+  Search,
+} from "./pages";
 import "./normalize.css";
 import { Route, Routes } from "react-router-dom";
 import Layout from "./layout/Layout";
@@ -18,6 +26,7 @@ function App() {
               <Route index element={<Home />} />
               <Route path="explore" element={<Explore />} />
               <Route path="bookmark" element={<Bookmark />} />
+              <Route path="search" element={<Search />} />
               <Route path="profile/:userId" element={<Profile />} />
             </Route>
           </Route>

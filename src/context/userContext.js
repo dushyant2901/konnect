@@ -31,13 +31,16 @@ const {
   ADD_FOLLOWING,
   REMOVE_FOLLOWING,
   REMOVE_FOLLOWER,
+  SEARCH_USER,
 } = actionTypes;
 
 const initialUserState = {
   users: [],
   user: {},
   bookmarks: [],
+  searchInput: "",
 };
+
 const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
@@ -204,6 +207,15 @@ const UserProvider = ({ children }) => {
     }
   };
 
+  const searchInputHandler = (val) =>
+    userDispatch({ type: SEARCH_USER, payload: val });
+
+  const searchedUsers =
+    userState.searchInput &&
+    userState.users.filter(({ username }) =>
+      username.toLowerCase().includes(userState.searchInput.toLowerCase())
+    );
+  console.log({ searchedUsers });
   useEffect(() => {
     getAllBookmarks();
     getAllUsers();
@@ -219,6 +231,8 @@ const UserProvider = ({ children }) => {
         removeBookmarkHandler,
         followUserHandler,
         unfollowUserHandler,
+        searchInputHandler,
+        searchedUsers,
       }}
     >
       {children}

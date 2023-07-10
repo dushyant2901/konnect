@@ -1,33 +1,43 @@
 import React from "react";
 import "./Navigation.css";
 import { NavLink } from "react-router-dom";
-import { MdBookmark, MdExplore, MdHome } from "react-icons/md";
-export const navData = [
-  {
-    id: 1,
-    url: "/",
-    text: "home",
-    icon: <MdHome />,
-  },
-  {
-    id: 2,
-    url: "/explore",
-    text: "explore",
-    icon: <MdExplore />,
-  },
-  {
-    id: 3,
-    url: "/bookmark",
-    text: "bookmark",
-    icon: <MdBookmark />,
-  },
-];
+
+import { useAuth } from "../../context";
+import { MdBookmark, MdExplore, MdHome, MdPerson } from "react-icons/md";
 
 const Navigation = () => {
+  const { currentUser } = useAuth();
+  const NavData = [
+    {
+      id: 1,
+      url: "/",
+      text: "home",
+      icon: <MdHome />,
+    },
+    {
+      id: 2,
+      url: "/explore",
+      text: "explore",
+      icon: <MdExplore />,
+    },
+    {
+      id: 3,
+      url: "/bookmark",
+      text: "bookmark",
+      icon: <MdBookmark />,
+    },
+    {
+      id: 4,
+      url: `/profile/${currentUser?._id}`,
+      text: "profile",
+      icon: <MdPerson />,
+    },
+  ];
+
   return (
     <nav className="nav">
       <div>
-        {navData.map(({ id, icon, url, text }) => {
+        {NavData.map(({ id, icon, url, text }) => {
           return (
             <NavLink
               to={url}

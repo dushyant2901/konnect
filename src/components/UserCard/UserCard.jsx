@@ -5,10 +5,20 @@ import { Link } from "react-router-dom";
 import { useAuth, useUser } from "../../context";
 const UserCard = ({ user, type }) => {
   const { name, username, profilePic, _id } = user;
-  const { followUserHandler, unfollowUserHandler } = useUser();
+  const { followUserHandler, unfollowUserHandler, users } = useUser();
   const { currentUser } = useAuth();
+
+  const usersFollowedByCurrentUser = users
+    .find(({ _id }) => currentUser._id === _id)
+    ?.following.map(({ username }) => username);
+
+  const isUserFollowedByCurrentUser =
+    usersFollowedByCurrentUser.includes(username);
+
   const handleFollowBtn = () => followUserHandler(_id);
+
   const handleUnfollowBtn = () => unfollowUserHandler(_id);
+
   return (
     <article className="user-card">
       <div className="user">
@@ -24,7 +34,7 @@ const UserCard = ({ user, type }) => {
         </div>
       </div>
       <div className="action">
-        {type === "following" ? (
+        {/* {type === "following" ? (
           <button
             className="btn btn-primary btn-small"
             onClick={handleUnfollowBtn}
@@ -37,6 +47,27 @@ const UserCard = ({ user, type }) => {
         ) : type === "followers" ? (
           <button className="btn btn-primary btn-small" disabled>
             Remove
+            <span className="icon">
+              <MdRemove />
+            </span>
+          </button>
+        ) : (
+          <button
+            className="btn btn-primary btn-small"
+            onClick={handleFollowBtn}
+          >
+            Follow
+            <span className="icon">
+              <MdAdd />
+            </span>
+          </button>
+        )} */}
+        {isUserFollowedByCurrentUser ? (
+          <button
+            className="btn btn-primary btn-small"
+            onClick={handleUnfollowBtn}
+          >
+            Unfollow
             <span className="icon">
               <MdRemove />
             </span>

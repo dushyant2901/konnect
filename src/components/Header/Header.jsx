@@ -1,13 +1,20 @@
 import React from "react";
 import "./Header.css";
 import { BiSearchAlt2 } from "react-icons/bi";
-import { Link } from "react-router-dom";
-import { useAuth } from "../../context";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth, useUser } from "../../context";
 
 const Header = () => {
   const { currentUser } = useAuth();
   const { profilePic, _id } = currentUser ?? {};
-
+  const { searchInput, searchInputHandler } = useUser();
+  const navigate = useNavigate();
+  const handleSearchInput = (e) => {
+    if (searchInput.length > 0) {
+      navigate("/search");
+    }
+    searchInputHandler(e.target.value);
+  };
   return (
     <header className="header">
       <div className="container">
@@ -18,7 +25,12 @@ const Header = () => {
           <span className="icon">
             <BiSearchAlt2 />
           </span>
-          <input type="search" placeholder="Search for users" />
+          <input
+            type="search"
+            placeholder="Search for users"
+            onChange={handleSearchInput}
+            value={searchInput}
+          />
         </div>
         <Link to={`profile/${_id}`}>
           <div className="profile-photo">
