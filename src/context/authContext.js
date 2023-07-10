@@ -14,12 +14,9 @@ const AuthProvider = ({ children }) => {
   const localStorageToken = localStorage.getItem("token");
 
   const [token, setToken] = useState(localStorageToken || "");
-  console.log(token);
-  // const [token, setToken] = useState(localStorageToken?.token || "");
 
   useEffect(() => {
     const currentLoggedInUser = JSON.parse(localStorage.getItem("userData"));
-    setCurrentUser(currentLoggedInUser);
 
     const initialLogInHandler = async () => {
       try {
@@ -29,9 +26,9 @@ const AuthProvider = ({ children }) => {
           ({ username }) => username === currentLoggedInUser.username
         );
         if (userInDB) {
-          //   navigate("/");
           setCurrentUser(() => currentLoggedInUser);
           setIsUserLoggedIn(true);
+          navigate("/");
         }
       } catch (e) {
         console.error(e);
@@ -85,12 +82,22 @@ const AuthProvider = ({ children }) => {
           profileImg,
           _id,
         }));
+        setToken(encodedToken);
         setIsUserLoggedIn(true);
         navigate("/");
       }
     } catch (e) {
       console.error(e);
     }
+  };
+
+  const logoutHandler = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userData");
+    setToken(null);
+    setCurrentUser(null);
+    setIsUserLoggedIn(false);
+    navigate("/login");
   };
 
   return (
@@ -102,6 +109,7 @@ const AuthProvider = ({ children }) => {
         setIsUserLoggedIn,
         signUpHandler,
         loginHandler,
+        logoutHandler,
         token,
       }}
     >
