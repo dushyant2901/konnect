@@ -4,7 +4,6 @@ import "./UserCard.css";
 import { useUser } from "../../context";
 const UserCard = ({ user, type }) => {
   const { name, username, profilePic, _id } = user;
-  console.log({ user, profilePic });
   const { followUserHandler, unfollowUserHandler } = useUser();
 
   const handleFollowBtn = () => followUserHandler(_id);
@@ -21,7 +20,24 @@ const UserCard = ({ user, type }) => {
         </div>
       </div>
       <div className="action">
-        {type !== "followers" ? (
+        {type === "following" ? (
+          <button
+            className="btn btn-primary btn-small"
+            onClick={handleUnfollowBtn}
+          >
+            Unfollow
+            <span className="icon">
+              <MdRemove />
+            </span>
+          </button>
+        ) : type === "followers" ? (
+          <button className="btn btn-primary btn-small" disabled>
+            Remove
+            <span className="icon">
+              <MdRemove />
+            </span>
+          </button>
+        ) : (
           <button
             className="btn btn-primary btn-small"
             onClick={handleFollowBtn}
@@ -29,16 +45,6 @@ const UserCard = ({ user, type }) => {
             Follow
             <span className="icon">
               <MdAdd />
-            </span>
-          </button>
-        ) : (
-          <button
-            className="btn btn-primary btn-small"
-            onClick={handleUnfollowBtn}
-          >
-            Remove
-            <span className="icon">
-              <MdRemove />
             </span>
           </button>
         )}

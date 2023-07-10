@@ -3,7 +3,7 @@ import { Bookmark, Explore, Home, SignUp, Login, Profile } from "./pages";
 import "./normalize.css";
 import { Route, Routes } from "react-router-dom";
 import Layout from "./layout/Layout";
-import { deletePostService } from "./services/appServices/postService";
+import PrivateRoutes from "./routes/PrivateRoutes";
 
 function App() {
   return (
@@ -15,6 +15,7 @@ function App() {
           <Route path="bookmark" element={<Bookmark />} />
           <Route path="profile/:userId" element={<Profile />} />
         </Route>
+
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>

@@ -7,7 +7,7 @@ import UserCard from "../UserCard/UserCard";
 const SuggestedUsers = () => {
   const { users } = useUser();
   const { currentUser: user } = useAuth();
-
+  console.log({ users });
   const nonFollowingUsers = users?.filter(
     ({ followers, username }) =>
       username !== user.username &&

@@ -141,7 +141,14 @@ export const users = [
     name: "Sheldon gupta",
     username: "sheldonG",
     password: "sheldonGG",
-    followers: [],
+    followers: [
+      {
+        _id: "a4f65f54-a598-42df-adb3-889984e0ec88",
+        name: "Dushyant Pratap Singh",
+        username: "dushyantcodes",
+        profilePic: "/images/profile-2.jpg",
+      },
+    ],
     following: [
       {
         _id: "a4f65f54-a598-42df-adb3-889984e0ec88",

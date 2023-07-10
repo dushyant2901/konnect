@@ -26,38 +26,47 @@ export const userReducer = (state, { type, payload }) => {
       return { ...state, user: payload };
 
     case ADD_FOLLOWER:
-      const { _user: followedByUser, _followUser: followedUser } = payload;
+      const { user, followUser: follow } = payload;
+      // const { _user: followedByUser, _followUser: followedUser } = payload;
       return {
         ...state,
-        users: state.users.map((user) =>
-          user.username === followedUser.username
-            ? { ...user, followers: [...user.followers, followedByUser] }
-            : user
+        users: state.users?.map(
+          (user) =>
+            user.username === follow.username
+              ? { ...user, followers: follow.followers }
+              : user
+          // users: state.users?.map((user) =>
+          //   user.username === followedUser.username
+          //     ? { ...user, followers: [...user?.followers, followedByUser] }
+          //     : user
         ),
       };
 
     case ADD_FOLLOWING:
-      const { _user: currentUser, _followUser: followUser } = payload;
+      const { user: currentUser, followUser } = payload;
+      // const { _user: currentUser, _followUser: followUser } = payload;
 
       return {
         ...state,
-        users: state.users.map((user) =>
+        users: state.users?.map((user) =>
           user.username === currentUser.username
             ? {
                 ...user,
-                following: [...user.following, { ...followUser }],
+                following: currentUser.following,
+                // following: [...user.following, { ...followUser }],
               }
             : user
         ),
         user: {
           ...state.user,
-          following: [...state.user.following, { ...followUser }],
+          following: currentUser.following,
+          // following: [...state?.user?.following, { ...followUser }],
         },
       };
     case REMOVE_FOLLOWER:
       return {
         ...state,
-        users: state.users.map((user) =>
+        users: state.users?.map((user) =>
           user.username === payload.username
             ? {
                 ...user,
@@ -69,7 +78,7 @@ export const userReducer = (state, { type, payload }) => {
     case REMOVE_FOLLOWING:
       return {
         ...state,
-        users: state.users.map((user) =>
+        users: state.users?.map((user) =>
           user.username === payload.username
             ? {
                 ...user,
@@ -77,6 +86,11 @@ export const userReducer = (state, { type, payload }) => {
               }
             : user
         ),
+        user: {
+          ...state.user,
+          following: payload.following,
+          // following: [...state?.user?.following, { ...followUser }],
+        },
       };
     default:
       return state;

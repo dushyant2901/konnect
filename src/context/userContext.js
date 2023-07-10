@@ -126,6 +126,7 @@ const UserProvider = ({ children }) => {
         status,
         data: { user, followUser },
       } = await followUserService(followUserId, token);
+      console.log({ user, followUser });
       const _followUser = {
         _id: followUser._id,
         username: followUser.username,
@@ -141,11 +142,12 @@ const UserProvider = ({ children }) => {
       if (status === 200 || status === 201) {
         userDispatch({
           type: ADD_FOLLOWING,
-          payload: { _followUser, _user },
+          // payload: { _followUser, _user },
+          payload: { followUser, user },
         });
         userDispatch({
           type: ADD_FOLLOWER,
-          payload: { _user, _followUser },
+          payload: { user, followUser },
         });
       }
     } catch (error) {
@@ -171,7 +173,7 @@ const UserProvider = ({ children }) => {
         userDispatch({ type: REMOVE_FOLLOWING, payload: user });
         userDispatch({
           type: REMOVE_FOLLOWER,
-          payload: _unfollowedUser,
+          payload: unfollowedUser,
         });
       }
     } catch (error) {

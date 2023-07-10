@@ -7,7 +7,7 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
-  const [userLoggedIn, setUserLoggedIn] = useState(false);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
   const navigate = useNavigate();
 
@@ -20,26 +20,24 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const currentLoggedInUser = JSON.parse(localStorage.getItem("userData"));
     setCurrentUser(currentLoggedInUser);
-    console.log({ currentLoggedInUser });
+
     const initialLogInHandler = async () => {
       try {
-        console.log(" working =======================");
         const { data: users } = await getAllUsersService();
-        console.log(" working =======================");
-        console.log({ users });
+
         const userInDB = users?.some(
           ({ username }) => username === currentLoggedInUser.username
         );
         if (userInDB) {
           //   navigate("/");
           setCurrentUser(() => currentLoggedInUser);
-          setUserLoggedIn(true);
+          setIsUserLoggedIn(true);
         }
       } catch (e) {
         console.error(e);
       }
     };
-    if (currentUser) {
+    if (currentLoggedInUser) {
       initialLogInHandler();
     }
   }, []);
@@ -87,7 +85,7 @@ const AuthProvider = ({ children }) => {
           profileImg,
           _id,
         }));
-        setUserLoggedIn(true);
+        setIsUserLoggedIn(true);
         navigate("/");
       }
     } catch (e) {
@@ -100,8 +98,8 @@ const AuthProvider = ({ children }) => {
       value={{
         currentUser,
         setCurrentUser,
-        userLoggedIn,
-        setUserLoggedIn,
+        isUserLoggedIn,
+        setIsUserLoggedIn,
         signUpHandler,
         loginHandler,
         token,
