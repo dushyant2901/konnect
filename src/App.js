@@ -9,11 +9,13 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="explore" element={<Explore />} />
-          <Route path="bookmark" element={<Bookmark />} />
-          <Route path="profile/:userId" element={<Profile />} />
+        <Route element={<PrivateRoutes />}>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="explore" element={<Explore />} />
+            <Route path="bookmark" element={<Bookmark />} />
+            <Route path="profile/:userId" element={<Profile />} />
+          </Route>
         </Route>
 
         <Route path="/login" element={<Login />} />

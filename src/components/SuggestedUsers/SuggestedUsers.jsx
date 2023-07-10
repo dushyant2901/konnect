@@ -10,8 +10,8 @@ const SuggestedUsers = () => {
   console.log({ users });
   const nonFollowingUsers = users?.filter(
     ({ followers, username }) =>
-      username !== user.username &&
-      !followers?.some(({ username }) => username === user.username)
+      username !== user?.username &&
+      !followers?.some(({ username }) => username === user?.username)
   );
   return (
     <section className="suggested-users">
