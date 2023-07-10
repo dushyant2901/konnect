@@ -30,7 +30,10 @@ const {
 
 const PostContext = createContext();
 
-const initialPostState = { posts: [], post: null };
+const initialPostState = {
+  posts: [],
+  post: null,
+};
 
 const PostProvider = ({ children }) => {
   const [postState, postDispatch] = useReducer(postReducer, initialPostState);
@@ -112,14 +115,16 @@ const PostProvider = ({ children }) => {
     }
   };
   const getSinglePost = async (postId) => {
+    setIsLoading(true);
+
     try {
       const {
         status,
         data: { post },
       } = await getSinglePostService(postId);
       if (status === 200) {
-        console.log("lalala");
         postDispatch({ type: GET_SINGLE_POST, payload: post });
+        setIsLoading(false);
       }
     } catch (error) {
       console.error(error);
@@ -141,8 +146,9 @@ const PostProvider = ({ children }) => {
   };
 
   const openEditModal = (editId) => {
-    setIsEditModalOpen(true);
     setEditId(editId);
+
+    setIsEditModalOpen(true);
   };
   const closeEditModal = () => setIsEditModalOpen(false);
 

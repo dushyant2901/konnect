@@ -4,7 +4,7 @@ import EditModal from "../EditModal/EditModal";
 import { usePost } from "../../context";
 
 const Posts = ({ posts = [] }) => {
-  const { isEditModalOpen } = usePost();
+  const { isEditModalOpen, isLoading } = usePost();
   return (
     <>
       <section className="posts">
@@ -13,7 +13,7 @@ const Posts = ({ posts = [] }) => {
           <Post key={post._id} {...post} />
         ))}
       </section>
-      {isEditModalOpen && <EditModal />}
+      {!isLoading && isEditModalOpen && <EditModal />}
     </>
   );
 };
