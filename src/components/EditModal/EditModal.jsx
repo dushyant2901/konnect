@@ -24,7 +24,7 @@ const EditModal = () => {
   }, [editId]);
 
   useEffect(() => {
-    setPostDetails({ content: post.content, postImg: post.postImg });
+    setPostDetails({ content: post?.content, postImg: post?.postImg });
   }, [post]);
 
   const handlePostDetails = (e) => {

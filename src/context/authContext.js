@@ -17,26 +17,30 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const currentLoggedInUser = JSON.parse(localStorage.getItem("userData"));
-
-    const initialLogInHandler = async () => {
-      try {
-        const { data: users } = await getAllUsersService();
-
-        const userInDB = users?.some(
-          ({ username }) => username === currentLoggedInUser.username
-        );
-        if (userInDB) {
-          setCurrentUser(() => currentLoggedInUser);
-          setIsUserLoggedIn(true);
-          navigate("/");
-        }
-      } catch (e) {
-        console.error(e);
-      }
-    };
     if (currentLoggedInUser) {
-      initialLogInHandler();
+      setCurrentUser(() => currentLoggedInUser);
+      setIsUserLoggedIn(true);
+      navigate("/");
     }
+    // const initialLogInHandler = async () => {
+    //   try {
+    //     const { data: users } = await getAllUsersService();
+
+    //     const userInDB = users?.some(
+    //       ({ username }) => username === currentLoggedInUser.username
+    //     );
+    //     if (userInDB) {
+    //       setCurrentUser(() => currentLoggedInUser);
+    //       setIsUserLoggedIn(true);
+    //       navigate("/");
+    //     }
+    //   } catch (e) {
+    //     console.error(e);
+    //   }
+    // };
+    // if (currentLoggedInUser) {
+    //   initialLogInHandler();
+    // }
   }, []);
 
   const signUpHandler = async (userdetails) => {

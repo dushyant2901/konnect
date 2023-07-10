@@ -63,14 +63,14 @@
   margin-bottom: 1rem;
 }
 @media screen and (min-width: 768px) {
-  .signup {
+  /* .signup {
     grid-template-columns: repeat(2, 1fr);
   }
   .signup .cover-image {
     display: block;
     grid-column-start: 1/2;
     width: 100%;
-  }
+  } */
   .signup .signup-form {
     grid-column-start: 2/3;
     width: 100%;
