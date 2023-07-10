@@ -4,10 +4,11 @@ import { useAuth } from "../context";
 const PrivateRoutes = () => {
   const location = useLocation();
   const { isUserLoggedIn } = useAuth();
+  console.log({ isUserLoggedIn });
   return isUserLoggedIn ? (
     <Outlet />
   ) : (
-    <Navigate to="/login" state={{ from: location }} replace />
+    <Navigate to="/auth/login" state={{ from: location }} replace />
   );
 };
 

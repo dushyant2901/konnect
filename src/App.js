@@ -4,23 +4,29 @@ import "./normalize.css";
 import { Route, Routes } from "react-router-dom";
 import Layout from "./layout/Layout";
 import PrivateRoutes from "./routes/PrivateRoutes";
+import AuthLayout from "./layout/AuthLayout/AuthLayout";
+import { ToastWrapper } from "./components";
 
 function App() {
   return (
     <div className="App">
-      <Routes>
-        <Route element={<PrivateRoutes />}>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="explore" element={<Explore />} />
-            <Route path="bookmark" element={<Bookmark />} />
-            <Route path="profile/:userId" element={<Profile />} />
+      <ToastWrapper />
+      <>
+        <Routes>
+          <Route element={<PrivateRoutes />}>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Home />} />
+              <Route path="explore" element={<Explore />} />
+              <Route path="bookmark" element={<Bookmark />} />
+              <Route path="profile/:userId" element={<Profile />} />
+            </Route>
           </Route>
-        </Route>
-
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
-      </Routes>
+          <Route path="/auth" element={<AuthLayout />}>
+            <Route path="login" element={<Login />} />
+            <Route path="signup" element={<SignUp />} />
+          </Route>
+        </Routes>
+      </>
     </div>
   );
 }

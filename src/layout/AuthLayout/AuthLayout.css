@@ -1,0 +1,28 @@
+.auth-layout {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+}
+.auth-layout .cover-image {
+  display: none;
+  height: 100%;
+}
+.auth-layout img {
+  height: 100%;
+  object-fit: cover;
+}
+
+@media screen and (min-width: 768px) {
+  .auth-layout {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .auth-layout .cover-image {
+    display: block;
+    grid-column-start: 1/2;
+    width: 100%;
+  }
+  .auth-layout .form-container {
+    grid-column-start: 2/3;
+    width: 100%;
+  }
+}

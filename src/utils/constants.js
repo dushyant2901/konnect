@@ -16,3 +16,8 @@ export const actionTypes = {
   REMOVE_FOLLOWING: "REMOVE_FOLLOWING",
   REMOVE_FOLLOWER: "REMOVE_FOLLOWER",
 };
+
+export const guestLoginDetails = {
+  username: "dushyantcodes",
+  password: "dushyantcodes123",
+};

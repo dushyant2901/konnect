@@ -7,12 +7,13 @@ import UserCard from "../UserCard/UserCard";
 const SuggestedUsers = () => {
   const { users } = useUser();
   const { currentUser: user } = useAuth();
-  console.log({ users });
+
   const nonFollowingUsers = users?.filter(
     ({ followers, username }) =>
       username !== user?.username &&
       !followers?.some(({ username }) => username === user?.username)
   );
+
   return (
     <section className="suggested-users">
       <h3 className="section-title">Suggested Users</h3>

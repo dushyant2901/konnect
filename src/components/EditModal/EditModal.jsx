@@ -46,8 +46,6 @@ const EditModal = () => {
     setEditId(null);
   };
 
-  if (isLoading) return "Loading.........";
-
   return (
     <article className="edit-modal-wrapper">
       <form className="edit-modal form">

@@ -209,7 +209,7 @@ h4 {
 }
 .form-row label {
   width: 30%;
-  font-size: 0.75rem;
+  font-size: 1rem;
 }
 .form-row input,
 .form-row textarea {
@@ -229,6 +229,20 @@ h4 {
 .form .btn-block {
   margin-bottom: 1rem;
 }
+
+@media screen and (min-width: 768px) {
+  .form .btn-block {
+    margin-bottom: 1.5rem;
+  }
+  .form-row {
+    margin-bottom: 1.5rem;
+    gap: 1rem;
+  }
+  .form-row input {
+    min-width: 20rem;
+  }
+}
+
 .no-post-msg {
   background-color: var(--color-white);
   padding: var(--card-padding);

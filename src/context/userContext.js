@@ -5,6 +5,7 @@ import React, {
   useEffect,
   useReducer,
 } from "react";
+import { toast } from "react-hot-toast";
 import { userReducer } from "../reducers/userReducer";
 import {
   addBookmarkService,
@@ -100,9 +101,18 @@ const UserProvider = ({ children }) => {
       } = await addBookmarkService(postId, token);
       if (status === 200) {
         userDispatch({ type: ADD_BOOKMARK, payload: bookmarks });
+        toast.success("Added to bookmarks.");
       }
     } catch (error) {
-      console.error(error);
+      const {
+        response: { status },
+      } = error;
+      if (status === 400) {
+        toast.error("Post is already bookmarked.");
+      } else {
+        console.error(error);
+        toast.error("Something went wrong!");
+      }
     }
   };
   const removeBookmarkHandler = async (postId) => {
@@ -113,9 +123,18 @@ const UserProvider = ({ children }) => {
       } = await removeBookmarkService(postId, token);
       if (status === 200) {
         userDispatch({ type: REMOVE_BOOKMARK, payload: bookmarks });
+        toast.success("Removed from bookmarks.");
       }
     } catch (error) {
-      console.error(error);
+      const {
+        response: { status },
+      } = error;
+      if (status === 400) {
+        toast.error("Post not bookmarked yet.");
+      } else {
+        console.error(error);
+        toast.error("Something went wrong!");
+      }
     }
   };
 
@@ -149,9 +168,11 @@ const UserProvider = ({ children }) => {
           type: ADD_FOLLOWER,
           payload: { user, followUser },
         });
+        toast.success(`Followed @${followUser.username}`);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      toast.error("Something went wrong.");
     }
   };
 
@@ -175,9 +196,11 @@ const UserProvider = ({ children }) => {
           type: REMOVE_FOLLOWER,
           payload: unfollowedUser,
         });
+        toast.success(`Unfollowed @${unfollowedUser.username}`);
       }
     } catch (error) {
       console.log(error);
+      toast.error("Something went wrong.");
     }
   };
 

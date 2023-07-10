@@ -1,26 +1,30 @@
 import React, { useContext, createContext, useState, useEffect } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import { loginService } from "../services/authService/loginService";
 import { signUpService } from "../services/authService/signUpService";
 import { getAllUsersService } from "../services/appServices/usersService";
+import { toast } from "react-hot-toast";
+
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(null);
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
-
   const navigate = useNavigate();
+  const location = useLocation();
 
   const localStorageToken = localStorage.getItem("token");
-
   const [token, setToken] = useState(localStorageToken || "");
-
+  const [currentUser, setCurrentUser] = useState(null);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     const currentLoggedInUser = JSON.parse(localStorage.getItem("userData"));
+    console.log({ currentLoggedInUser });
     if (currentLoggedInUser) {
-      setCurrentUser(() => currentLoggedInUser);
       setIsUserLoggedIn(true);
+      setCurrentUser(currentLoggedInUser);
       navigate("/");
+      const localStorageToken = localStorage.getItem("token");
+      setToken(localStorageToken);
     }
     // const initialLogInHandler = async () => {
     //   try {
@@ -30,12 +34,15 @@ const AuthProvider = ({ children }) => {
     //       ({ username }) => username === currentLoggedInUser.username
     //     );
     //     if (userInDB) {
-    //       setCurrentUser(() => currentLoggedInUser);
     //       setIsUserLoggedIn(true);
-    //       navigate("/");
+    //       setCurrentUser(currentLoggedInUser);
+    //       toast.success(`Welcome back, ${currentUser.name}!`, { icon: "👋" });
+    //       navigate(location?.state?.from?.pathname || "/", { replace: true });
     //     }
     //   } catch (e) {
     //     console.error(e);
+    //   } finally {
+    //     setIsLoading(false);
     //   }
     // };
     // if (currentLoggedInUser) {
@@ -44,6 +51,7 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   const signUpHandler = async (userdetails) => {
+    setIsLoading(true);
     try {
       const {
         status,
@@ -53,45 +61,69 @@ const AuthProvider = ({ children }) => {
       if (status === 201) {
         localStorage.setItem("token", encodedToken);
         const { username, name, profileImg, _id } = createdUser;
-        localStorage.setItem(
-          "userData",
-          JSON.stringify({ username, name, profileImg, _id })
-        );
-        navigate("/");
+
+        const currentUser = { username, name, profileImg, _id };
+        setIsUserLoggedIn(true);
+        localStorage.setItem("userData", JSON.stringify(currentUser));
+        setToken(encodedToken);
+        setCurrentUser(currentUser);
+        toast.success(`Hi, ${createdUser.firstName}!`, {
+          icon: "👋",
+        });
+        navigate("/", { replace: true });
       }
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      const {
+        response: { status },
+      } = error;
+      if (status === 422) {
+        toast.error("Username Already Exists. Please choose another one.");
+      } else {
+        toast.error("Something went wrong");
+      }
+      console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const loginHandler = async (userDetails) => {
-    console.log(userDetails);
-    const { username, password } = userDetails;
+    setIsLoading(true);
     try {
       const {
         status,
         data: { foundUser, encodedToken },
-      } = await loginService({ username, password });
+      } = await loginService({ ...userDetails });
 
       if (status === 200) {
         localStorage.setItem("token", encodedToken);
         const { username, name, profileImg, _id } = foundUser;
-        localStorage.setItem(
-          "userData",
-          JSON.stringify({ username, name, profileImg, _id })
-        );
-        setCurrentUser(() => ({
-          username,
-          name,
-          profileImg,
-          _id,
-        }));
+
+        const currentUser = { username, name, profileImg, _id };
+
+        localStorage.setItem("userData", JSON.stringify(currentUser));
+        setCurrentUser(currentUser);
         setToken(encodedToken);
         setIsUserLoggedIn(true);
-        navigate("/");
+        toast.success(`Welcome back, ${currentUser.name}!`, { icon: "👋" });
+        navigate(location?.state?.from?.pathname || "/", { replace: true });
       }
-    } catch (e) {
-      console.error(e);
+    } catch (error) {
+      const {
+        response: { status },
+      } = error;
+      if (status === 404) {
+        toast.error("The username you entered is not registered.");
+      } else if (status === 401) {
+        toast.error(
+          "The credentials you entered are invalid. Please try again."
+        );
+      } else {
+        toast.error("Something went wrong");
+      }
+      console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -101,7 +133,7 @@ const AuthProvider = ({ children }) => {
     setToken(null);
     setCurrentUser(null);
     setIsUserLoggedIn(false);
-    navigate("/login");
+    navigate("/auth/login");
   };
 
   return (

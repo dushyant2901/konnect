@@ -5,6 +5,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
+import { toast } from "react-hot-toast";
 import {
   getAllPostsService,
   createPostService,
@@ -66,9 +67,18 @@ const PostProvider = ({ children }) => {
       } = await likePostService(postId, token);
       if (status === 201) {
         postDispatch({ type: LIKE_POST, payload: posts });
+        toast.success("Liked a post");
       }
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      const {
+        response: { status },
+      } = error;
+      if (status === 400) {
+        toast.error("Cannot like a post that is already liked.");
+      } else {
+        console.error(error);
+        toast.error("Something went wrong");
+      }
     }
   };
 
@@ -80,9 +90,18 @@ const PostProvider = ({ children }) => {
       } = await dislikePostService(postId, token);
       if (status === 201) {
         postDispatch({ type: DISLIKE_POST, payload: posts });
+        toast.success("Unliked the post");
       }
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      const {
+        response: { status },
+      } = error;
+      if (status === 400) {
+        toast.error("Cannot like a post that is already liked.");
+      } else {
+        console.error(error);
+        toast.error("Something went wrong");
+      }
     }
   };
   const createPostHandler = async ({ content, postImg }) => {
@@ -97,6 +116,7 @@ const PostProvider = ({ children }) => {
       }
     } catch (error) {
       console.error(error);
+      toast.error("Something went wrong, try again!");
     } finally {
       setIsLoading(false);
     }
@@ -109,14 +129,14 @@ const PostProvider = ({ children }) => {
       } = await deletePostService(postId, token);
       if (status === 201) {
         postDispatch({ type: DELETE_POST, payload: posts });
+        toast.success("Post deleted successfully!");
       }
     } catch (error) {
       console.error(error);
+      toast.error("Something went wrong, try again");
     }
   };
   const getSinglePost = async (postId) => {
-    setIsLoading(true);
-
     try {
       const {
         status,
@@ -124,7 +144,6 @@ const PostProvider = ({ children }) => {
       } = await getSinglePostService(postId);
       if (status === 200) {
         postDispatch({ type: GET_SINGLE_POST, payload: post });
-        setIsLoading(false);
       }
     } catch (error) {
       console.error(error);
@@ -142,6 +161,7 @@ const PostProvider = ({ children }) => {
       }
     } catch (error) {
       console.error(error);
+      toast.error("Something went wrong!");
     }
   };
 

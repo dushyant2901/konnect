@@ -57,11 +57,11 @@ export const userReducer = (state, { type, payload }) => {
               }
             : user
         ),
-        user: {
-          ...state.user,
-          following: currentUser.following,
-          // following: [...state?.user?.following, { ...followUser }],
-        },
+        // user: {
+        //   ...state.user,
+        //   following: currentUser.following,
+        //   // following: [...state?.user?.following, { ...followUser }],
+        // },
       };
     case REMOVE_FOLLOWER:
       return {

@@ -10,6 +10,7 @@ import Following from "./Following/Following";
 import Tabs from "./Tabs/Tabs";
 import UserCard from "./UserCard/UserCard";
 import EditModal from "./EditModal/EditModal";
+import ToastWrapper from "./ToastWrapper/ToastWrapper";
 export {
   Navigation,
   Feeds,
@@ -23,4 +24,5 @@ export {
   Tabs,
   UserCard,
   EditModal,
+  ToastWrapper,
 };
