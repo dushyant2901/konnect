@@ -7,7 +7,7 @@ import UserCard from "../UserCard/UserCard";
 const SuggestedUsers = () => {
   const { users } = useUser();
   const { currentUser: user } = useAuth();
-
+  console.log({ users });
   const nonFollowingUsers = users?.filter(
     ({ followers, username }) =>
       username !== user?.username &&
@@ -22,9 +22,11 @@ const SuggestedUsers = () => {
           <p>No more suggestions left as you followed everyone...</p>
         )}
         {nonFollowingUsers.length > 0 &&
-          nonFollowingUsers?.map((user) => (
-            <UserCard user={user} key={user._id} type="suggested" />
-          ))}
+          nonFollowingUsers
+            ?.slice(0, 5)
+            .map((user) => (
+              <UserCard user={user} key={user._id} type="suggested" />
+            ))}
       </div>
     </section>
   );

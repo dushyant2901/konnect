@@ -7,13 +7,13 @@ const {
   DELETE_POST,
   EDIT_POST,
   GET_SINGLE_POST,
+  SORT_BY,
 } = actionTypes;
 
 export const postReducer = (state, { type, payload }) => {
   console.log({ type, payload });
   switch (type) {
     case GET_ALL_POSTS:
-      console.log({ type });
       return { ...state, posts: payload };
     case CREATE_NEW_POST:
       return { ...state, posts: payload };
@@ -27,6 +27,8 @@ export const postReducer = (state, { type, payload }) => {
       return { ...state, posts: payload };
     case GET_SINGLE_POST:
       return { ...state, post: payload };
+    case SORT_BY:
+      return { ...state, sortBy: payload };
     default:
       return state;
   }

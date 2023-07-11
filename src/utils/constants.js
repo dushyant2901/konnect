@@ -16,9 +16,10 @@ export const actionTypes = {
   REMOVE_FOLLOWING: "REMOVE_FOLLOWING",
   REMOVE_FOLLOWER: "REMOVE_FOLLOWER",
   SEARCH_USER: "SEARCH_USER",
+  SORT_BY: "SORT_BY",
 };
 
 export const guestLoginDetails = {
-  username: "dushyantcodes",
-  password: "dushyantcodes123",
+  password: "emily@123Smith",
+  username: "emilysmith",
 };

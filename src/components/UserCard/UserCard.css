@@ -19,3 +19,6 @@
 .user-card .decline-btn {
   background: var(--color-white);
 }
+.following-btn {
+  background: white;
+}

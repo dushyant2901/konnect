@@ -9,11 +9,11 @@ const UserCard = ({ user, type }) => {
   const { currentUser } = useAuth();
 
   const usersFollowedByCurrentUser = users
-    .find(({ _id }) => currentUser._id === _id)
+    ?.find(({ _id }) => currentUser._id === _id)
     ?.following.map(({ username }) => username);
 
   const isUserFollowedByCurrentUser =
-    usersFollowedByCurrentUser.includes(username);
+    usersFollowedByCurrentUser?.includes(username);
 
   const handleFollowBtn = () => followUserHandler(_id);
 
@@ -64,10 +64,10 @@ const UserCard = ({ user, type }) => {
         )} */}
         {isUserFollowedByCurrentUser ? (
           <button
-            className="btn btn-primary btn-small"
+            className="btn btn-secondary btn-small following-btn"
             onClick={handleUnfollowBtn}
           >
-            Unfollow
+            Following
             <span className="icon">
               <MdRemove />
             </span>

@@ -27,6 +27,7 @@ const {
   CREATE_NEW_POST,
   GET_SINGLE_POST,
   EDIT_POST,
+  SORT_BY,
 } = actionTypes;
 
 const PostContext = createContext();
@@ -34,6 +35,7 @@ const PostContext = createContext();
 const initialPostState = {
   posts: [],
   post: null,
+  sortBy: "Latest",
 };
 
 const PostProvider = ({ children }) => {
@@ -165,6 +167,9 @@ const PostProvider = ({ children }) => {
     }
   };
 
+  const sortTypeHandler = (val) =>
+    postDispatch({ type: SORT_BY, payload: val });
+
   const openEditModal = (editId) => {
     setEditId(editId);
 
@@ -192,6 +197,7 @@ const PostProvider = ({ children }) => {
         editId,
         isEditModalOpen,
         editPostHandler,
+        sortTypeHandler,
       }}
     >
       {children}

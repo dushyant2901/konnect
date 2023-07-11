@@ -42,6 +42,10 @@
 .nav .active h3 {
   color: var(--color-primary);
 }
+.logout-btn {
+  width: 100%;
+  background: white;
+}
 @media screen and (min-width: 992px) {
   .nav {
     position: static;

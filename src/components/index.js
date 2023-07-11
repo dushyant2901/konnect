@@ -11,6 +11,8 @@ import Tabs from "./Tabs/Tabs";
 import UserCard from "./UserCard/UserCard";
 import EditModal from "./EditModal/EditModal";
 import ToastWrapper from "./ToastWrapper/ToastWrapper";
+import Loader from "./Loader/Loader";
+import Sort from "./Sort/Sort";
 export {
   Navigation,
   Feeds,
@@ -25,4 +27,6 @@ export {
   UserCard,
   EditModal,
   ToastWrapper,
+  Loader,
+  Sort,
 };

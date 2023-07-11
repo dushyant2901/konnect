@@ -17,18 +17,17 @@ const AuthProvider = ({ children }) => {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
-    setIsLoading(true)
+    setIsLoading(true);
     const currentLoggedInUser = JSON.parse(localStorage.getItem("userData"));
     if (currentLoggedInUser) {
-      console.log("first");
       setIsUserLoggedIn(true);
       setCurrentUser(() => currentLoggedInUser);
       navigate("/");
-      
+
       // const localStorageToken = localStorage.getItem("token");
       // setToken(localStorageToken);
     }
-    setIsLoading(false)
+    setIsLoading(false);
     // const initialLogInHandler = async () => {
     //   try {
     //     const { data: users } = await getAllUsersService();
@@ -74,6 +73,7 @@ const AuthProvider = ({ children }) => {
         toast.success(`Hi, ${createdUser.firstName}!`, {
           icon: "👋",
         });
+        console.log({ createdUser });
         navigate("/", { replace: true });
       }
     } catch (error) {

@@ -3,10 +3,16 @@ import "./Navigation.css";
 import { NavLink } from "react-router-dom";
 
 import { useAuth } from "../../context";
-import { MdBookmark, MdExplore, MdHome, MdPerson } from "react-icons/md";
+import {
+  MdBookmark,
+  MdExplore,
+  MdHome,
+  MdLogout,
+  MdPerson,
+} from "react-icons/md";
 
 const Navigation = () => {
-  const { currentUser } = useAuth();
+  const { currentUser, logoutHandler } = useAuth();
   const NavData = [
     {
       id: 1,
@@ -51,6 +57,12 @@ const Navigation = () => {
             </NavLink>
           );
         })}
+        <button className="nav-item logout-btn" onClick={logoutHandler}>
+          <span className="icon nav-icon">
+            <MdLogout />
+          </span>
+          <h3 className="text">logout</h3>
+        </button>
       </div>
     </nav>
   );

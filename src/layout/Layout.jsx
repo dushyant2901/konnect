@@ -1,13 +1,15 @@
 import React from "react";
 import { Outlet } from "react-router";
-import { Header, Navigation, SuggestedUsers } from "../components";
+import { Header, Loader, Navigation, SuggestedUsers } from "../components";
 import "./Layout.css";
 import { useAuth } from "../context";
 const Layout = () => {
   const { isLoading } = useAuth();
+  // const abc = true
   return (
     <>
-      {isLoading && <h2>Loading..........</h2>}
+      {/* {abc && <Loader/>} */}
+      {isLoading && <Loader />}
       {!isLoading && (
         <>
           <Header />
