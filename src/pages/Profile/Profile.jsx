@@ -13,11 +13,8 @@ const Profile = () => {
     getUserByUserId(userId);
   }, [userId]);
 
-  const userPosts = posts.filter(({ userId: id }) => id === userId);
+  const userPosts = posts.filter(({ username }) => username === user?.username);
 
-  // if (isLoading) {
-  //   return <Loader />;
-  // }
   const { following, followers } = user ?? {};
   console.log({ followers, following });
   return (
