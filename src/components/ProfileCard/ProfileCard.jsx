@@ -1,13 +1,24 @@
 import React from "react";
 import "./ProfileCard.css";
-import { useAuth } from "../../context";
+import { useAuth, useUser } from "../../context";
+import { MdAdd, MdRemove } from "react-icons/md";
+
 const ProfileCard = ({ user }) => {
   const { username, name, profilePic, bio, followers, following, _id } =
     user ?? {};
   const { currentUser, logoutHandler } = useAuth();
+  const { followUserHandler, unfollowUserHandler } = useUser();
+
+  const isFollowedByCurrentUser = user?.followers
+    ?.map(({ follower }) => follower)
+    ?.includes(currentUser.username);
+
   const handleLogoutBtn = () => {
     logoutHandler();
   };
+  const handleFollowBtn = () => followUserHandler(_id);
+
+  const handleUnfollowBtn = () => unfollowUserHandler(_id);
   return (
     <article className="profile-card">
       <header className="profile-card-header">
@@ -21,6 +32,29 @@ const ProfileCard = ({ user }) => {
               logout
             </button>
           </div>
+        )}
+
+        {currentUser._id !== _id && !isFollowedByCurrentUser && (
+          <button
+            className="btn btn-primary btn-small"
+            onClick={handleFollowBtn}
+          >
+            Follow
+            <span className="icon">
+              <MdAdd />
+            </span>
+          </button>
+        )}
+        {currentUser._id !== _id && isFollowedByCurrentUser && (
+          <button
+            className="btn btn-secondary btn-small following-btn"
+            onClick={handleUnfollowBtn}
+          >
+            Following
+            <span className="icon">
+              <MdRemove />
+            </span>
+          </button>
         )}
       </header>
       <div className="info">

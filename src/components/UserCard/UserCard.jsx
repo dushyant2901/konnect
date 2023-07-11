@@ -22,7 +22,7 @@ const UserCard = ({ user, type }) => {
   return (
     <article className="user-card">
       <div className="user">
-        <Link to={`profile/${_id}`}>
+        <Link to={`/profile/${_id}`}>
           <div className="profile-photo">
             <img src={profilePic} alt="profile pic" className="img" />
           </div>
