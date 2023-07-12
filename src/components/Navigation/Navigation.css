@@ -3,10 +3,12 @@
   align-items: center;
   justify-content: space-between;
   background-color: var(--color-white);
+  border: 1px solid var(--color-primary);
   width: 100%;
   position: fixed;
   bottom: 0;
   left: 0;
+  overflow: hidden;
 }
 
 .nav div {
@@ -21,16 +23,19 @@
   position: relative;
   transition: var(--transition);
   cursor: pointer;
+  color: var(--color-dark);
   align-items: center;
 }
 
 .nav-icon {
   font-size: 2rem;
   font-size: 1.6rem;
-  color: var(--color-gray);
+  color: var(--color-dark);
 }
 .nav-text {
   display: none;
+}
+.nav-item {
 }
 .nav-item:hover {
   background-color: var(--color-light);
@@ -42,9 +47,11 @@
 .nav .active h3 {
   color: var(--color-primary);
 }
-.logout-btn {
+.logout-nav-btn {
   width: 100%;
-  background: white;
+  background-color: transparent;
+  /* background: var(--color-light); */
+  /* color: var(--color-dark); */
 }
 @media screen and (min-width: 992px) {
   .nav {

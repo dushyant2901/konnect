@@ -46,7 +46,7 @@ const UserContext = createContext();
 const UserProvider = ({ children }) => {
   const [userState, userDispatch] = useReducer(userReducer, initialUserState);
   const [isLoading, setIsLoading] = useState(false);
-  const { token } = useAuth();
+  const { token, currentUser } = useAuth();
   const getAllUsers = async () => {
     setIsLoading(true);
     try {
@@ -219,7 +219,7 @@ const UserProvider = ({ children }) => {
   useEffect(() => {
     getAllBookmarks();
     getAllUsers();
-  }, []);
+  }, [currentUser]);
   return (
     <UserContext.Provider
       value={{

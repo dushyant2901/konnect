@@ -1,7 +1,11 @@
 .create-post-form.form {
   padding: var(--card-padding);
   margin-bottom: 1rem;
+  border: 1px solid var(--color-primary);
 }
 .create-post-form .form-row {
   margin-bottom: 0.5rem;
+}
+.create-post-form textarea {
+  width: 100%;
 }

@@ -7,11 +7,13 @@ import {
   UserProvider,
   AuthProvider,
   PostProvider,
+  ThemeProvider,
   useAuth,
   usePost,
   useUser,
+  useTheme,
 } from "./context";
-export { usePost, useAuth, useUser };
+export { usePost, useAuth, useUser, useTheme };
 
 // Call make Server
 makeServer();
@@ -19,13 +21,15 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Router>
-      <AuthProvider>
-        <PostProvider>
-          <UserProvider>
-            <App />
-          </UserProvider>
-        </PostProvider>
-      </AuthProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <PostProvider>
+            <UserProvider>
+              <App />
+            </UserProvider>
+          </PostProvider>
+        </AuthProvider>
+      </ThemeProvider>
     </Router>
   </React.StrictMode>
 );

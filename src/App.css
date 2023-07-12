@@ -1,19 +1,46 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
-:root {
-  /*Colors*/
-  --primary-color-hue: 252;
+
+.dark {
+  --dark-color-lightness: 95%;
+  --light-color-lightness: 0%;
+  --white-color-lightness: 10%;
+}
+.light {
   --dark-color-lightness: 17%;
   --light-color-lightness: 95%;
   --white-color-lightness: 100%;
-  --color-dark: hsl(252, 30%, var(--dark-color-lightness));
-  --color-white: hsl(252, 30%, var(--white-color-lightness));
+}
+.green {
+  --primary-color-hue: 102;
+}
+.red {
+  --primary-color-hue: 360;
+}
+.purple {
+  --primary-color-hue: 252;
+}
+:root {
+  /*Colors*/
+  /* --primary-color-hue: 252; */
+
+  --color-dark: hsl(var(--primary-color-hue), 30%, var(--dark-color-lightness));
+  --color-white: hsl(
+    var(--primary-color-hue),
+    30%,
+    var(--white-color-lightness)
+  );
   --color-gray: hsl(var(--primary-color-hue), 15%, 65%);
   --color-primary: hsl(var(--primary-color-hue), 60%, 65%);
-  --color-secondary: hsl(252, 100%, 90%);
-  --color-success: hsl(120, 95%, 65%);
+  --color-secondary: hsl(var(--primary-color-hue), 100%, 90%);
+  --color-success: hsl(120, 96%, 65%);
   --color-danger: hsl(0, 95%, 65%);
-  --color-black: hsl(252, 30%, 10%);
-  --color-light: hsl(252, 30%, var(--light-color-lightness));
+  --color-black: hsl(var(--primary-color-hue), 30%, 10%);
+  /* --color-white: hsl(0, 0%, 100%); */
+  --color-light: hsl(
+    var(--primary-color-hue),
+    30%,
+    var(--light-color-lightness)
+  );
 
   /*Border Radius*/
   --border-radius: 2rem;
@@ -91,6 +118,9 @@ img {
   transition: all 300ms ease;
   font-size: 0.9rem;
   line-height: 1.5;
+  border: 1px solid var(--color-dark);
+  color: var(--color-dark);
+  background: var(--color-light);
 }
 
 .btn:hover {
@@ -100,6 +130,8 @@ img {
 .btn-primary {
   background: var(--color-primary);
   color: white;
+  border: none;
+  /* color: var(--color-white); */
 }
 .btn-block {
   width: 100%;
@@ -197,7 +229,6 @@ h4 {
   width: 100%;
   padding: 0.375rem 0.75rem;
   border-radius: var(--borderRadius);
-  background: var(--backgroundColor);
   border: 1px solid var(--grey-200);
 }
 
@@ -216,9 +247,11 @@ h4 {
   font-size: 1rem;
   min-width: 15rem;
   width: 70%;
+  color: var(--color-dark);
+  background: transparent;
 }
 .form-alert {
-  color: red;
+  color: var(--color-danger);
   display: none;
 }
 .form-title {

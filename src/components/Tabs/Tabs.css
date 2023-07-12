@@ -4,14 +4,20 @@
   margin: 1rem 0;
   border-radius: var(--card-border-radius);
   overflow: hidden;
+  border: 1px solid var(--color-primary);
 }
 .tab-btn {
   background: var(--color-white);
   flex: 1;
   text-transform: capitalize;
   border-radius: 0;
+  overflow: hidden;
 }
-.active-tab-btn {
+.tab-btn.btn {
+  border: none;
+  /* color: var(--color-dark); */
+}
+.tab-btn.active-tab-btn {
   background: var(--color-primary);
-  color: white;
+  /* color: var(--color-light); */
 }

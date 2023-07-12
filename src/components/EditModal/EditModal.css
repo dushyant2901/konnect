@@ -8,7 +8,7 @@
   background: var(--color-secondary);
 }
 .edit-modal {
-  background: white;
+  background: var(--color-white);
   position: relative;
   padding: 1rem;
   width: 80vw;

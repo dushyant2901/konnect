@@ -5,6 +5,7 @@
   margin-bottom: 1rem;
   /* font-size: 0.85rem; */
   line-height: 1.5;
+  border: 1px solid var(--color-primary);
 }
 .post .head {
   display: flex;
@@ -41,28 +42,34 @@
   padding: 0;
   background: transparent;
   text-transform: capitalize;
+  border: none;
+  font-weight: bolder;
 }
 .more-options {
   position: relative;
-  background: white;
+  background: var(--color-white);
 }
 .more-options div {
   box-shadow: var(--shadow-1);
   position: absolute;
   right: 0;
   top: -30px;
-  border: 2px solid var(--color-light);
+  /* border: 2px solid var(--color-light); */
   border-radius: 0.25rem;
+  overflow: hidden;
+  background-color: var(--color-dark);
+  border: 1px solid var(--color-dark);
 }
 .more-options button {
-  background: white;
+  background: var(--color-light);
   display: flex;
   align-items: center;
   gap: 0.15rem;
   font-size: 0.95rem;
   padding: 0.5rem 0.25rem;
   width: 100%;
-  border-bottom: 2px solid var(--color-light);
+  color: var(--color-dark);
+  border-bottom: 1px solid var(--color-dark);
 }
 .more-options .icon {
   font-size: inherit;

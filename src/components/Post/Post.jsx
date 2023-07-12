@@ -65,7 +65,6 @@ const Post = ({
     setMoreOptions(false);
   };
   const handleAddBookmarkBtn = () => {
-    console.log("gggggg", bookmarks);
     addBookmarkHandler(_id);
   };
   const handleRemoveBookmarkBtn = () => {

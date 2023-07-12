@@ -57,11 +57,11 @@ const Navigation = () => {
             </NavLink>
           );
         })}
-        <button className="nav-item logout-btn" onClick={logoutHandler}>
+        <button className="nav-item logout-nav-btn" onClick={logoutHandler}>
           <span className="icon nav-icon">
             <MdLogout />
           </span>
-          <h3 className="text">logout</h3>
+          <h3 className="nav-text">logout</h3>
         </button>
       </div>
     </nav>
