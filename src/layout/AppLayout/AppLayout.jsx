@@ -1,9 +1,9 @@
 import React from "react";
 import { Outlet } from "react-router";
-import { Header, Loader, Navigation, SuggestedUsers } from "../components";
-import "./Layout.css";
-import { useAuth } from "../context";
-const Layout = () => {
+import { Header, Loader, Navigation, SuggestedUsers } from "../../components";
+import "./AppLayout.css";
+import { useAuth } from "../../context";
+const AppLayout = () => {
   const { isLoading } = useAuth();
   // const abc = true
   return (
@@ -30,4 +30,4 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+export default AppLayout;

@@ -24,6 +24,7 @@ const Post = ({
   _id,
   userId,
   createdAt,
+  mediaURL,
 }) => {
   const {
     likePostHandler,
@@ -119,13 +120,7 @@ const Post = ({
             )}
           </div>
         )}
-      </header>
-      {postImg && (
-        <div className="post-image">
-          <img src={postImg} alt="post" className="img" />
-        </div>
-      )}
-
+      </header>{" "}
       <p className="caption">
         {readMore ? content : `${content?.substring(0, 300)}`}
         {!readMore && content?.length >= 300 && "...."}
@@ -135,6 +130,16 @@ const Post = ({
           </button>
         )}
       </p>
+      {postImg && (
+        <div className="post-image">
+          <img src={postImg} alt="post" className="img" />
+        </div>
+      )}
+      {mediaURL && (
+        <div className="post-image">
+          <img src={mediaURL} alt="post" className="img" />
+        </div>
+      )}
       <div className="action-button">
         <div className="interaction-buttons">
           <h3 className="like-count">{likeCount}</h3>

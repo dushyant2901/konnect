@@ -19,5 +19,6 @@
 }
 .tab-btn.active-tab-btn {
   background: var(--color-primary);
+  color: white;
   /* color: var(--color-light); */
 }

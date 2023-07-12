@@ -10,9 +10,8 @@ import {
 } from "./pages";
 import "./normalize.css";
 import { Route, Routes } from "react-router-dom";
-import Layout from "./layout/Layout";
+import { AuthLayout, AppLayout } from "./layout";
 import PrivateRoutes from "./routes/PrivateRoutes";
-import AuthLayout from "./layout/AuthLayout/AuthLayout";
 import { ToastWrapper } from "./components";
 
 function App() {
@@ -22,7 +21,7 @@ function App() {
       <>
         <Routes>
           <Route element={<PrivateRoutes />}>
-            <Route path="/" element={<Layout />}>
+            <Route path="/" element={<AppLayout />}>
               <Route index element={<Home />} />
               <Route path="explore" element={<Explore />} />
               <Route path="bookmark" element={<Bookmark />} />

@@ -6,4 +6,30 @@
 }
 .suggested-users-container {
   margin-top: 1rem;
+
+  display: flex;
+  gap: 1rem;
+  overflow-x: visible;
+}
+.suggested-users-container .user-card {
+  display: flex;
+  flex-direction: column;
+}
+.suggested-users-container .user {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+@media screen and (min-width: 992px) {
+  .suggested-users-container {
+    margin-top: 1rem;
+
+    display: block;
+  }
+  .suggested-users-container .user-card {
+    flex-direction: row;
+  }
+  .suggested-users-container .user {
+    flex-direction: row;
+  }
 }

@@ -20,6 +20,10 @@
   display: flex;
   gap: 2rem;
 }
+.profile-card .following-btn {
+  display: flex;
+  gap: 0.15rem;
+}
 .profile-card .action-btn {
   display: flex;
   flex-direction: column;

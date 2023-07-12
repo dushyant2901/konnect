@@ -36,7 +36,7 @@ const ProfileCard = ({ user }) => {
 
         {currentUser._id !== _id && !isFollowedByCurrentUser && (
           <button
-            className="btn btn-primary btn-small"
+            className="btn btn-primary btn-small following-btn"
             onClick={handleFollowBtn}
           >
             Follow
