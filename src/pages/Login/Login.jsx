@@ -21,6 +21,7 @@ const Login = () => {
   };
 
   const handleLoginBtn = (e) => {
+    e.preventDefault();
     if (!loginDetails.username && !loginDetails.password) {
       toast.error("Kindly fill all the fields!!");
       return;
