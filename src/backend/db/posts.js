@@ -127,6 +127,7 @@ export const posts = [
       dislikedBy: [],
     },
     username: "livparker",
+    userId: "qq8zWjEeXd",
     createdAt: formatDate(),
     updatedAt: formatDate(),
     comments: [
@@ -185,6 +186,7 @@ export const posts = [
       dislikedBy: [],
     },
     username: "adityaj",
+    userId: "LCrc9f0Zl0",
     createdAt: "2023-03-15T01:06:00+05:30",
     updatedAt: "2023-03-15T01:06:00+05:30",
     comments: [
@@ -233,6 +235,7 @@ export const posts = [
       dislikedBy: [],
     },
     username: "emilysmith",
+    userId: "t7cZfWIp-q",
     createdAt: formatDate(),
     updatedAt: formatDate(),
     comments: [
@@ -344,6 +347,7 @@ export const posts = [
       dislikedBy: [],
     },
     username: "imkriti",
+    userId: "M1NR81Bzlz",
     createdAt: "2021-09-15T01:06:00+05:30",
     updatedAt: "2021-09-15T01:06:00+05:30",
     comments: [
@@ -418,6 +422,7 @@ export const posts = [
       dislikedBy: [],
     },
     username: "avaturn",
+    userId: "M1NR81Bert",
     createdAt: "2021-03-11T01:06:00+05:30",
     updatedAt: "2021-03-11T01:06:00+05:30",
     comments: [
@@ -455,6 +460,7 @@ export const posts = [
       dislikedBy: [],
     },
     username: "aryan987",
+    userId: "1NR81Bzmuh",
     createdAt: "2022-05-11T01:06:00+05:30",
     updatedAt: "2022-05-11T01:06:00+05:30",
     comments: [],
@@ -492,6 +498,7 @@ export const posts = [
       dislikedBy: [],
     },
     username: "livparker",
+    userId: "qq8zWjEeXd",
     createdAt: "2022-05-10T01:06:00+05:30",
     updatedAt: "2022-05-10T01:06:00+05:30",
     comments: [
@@ -544,6 +551,7 @@ export const posts = [
       dislikedBy: [],
     },
     username: "rohaaan",
+    userId: "o5gzWjEeX_",
     createdAt: "2023-06-12T01:06:00+05:30",
     updatedAt: "2023-06-12T01:06:00+05:30",
     comments: [
@@ -607,6 +615,7 @@ export const posts = [
       dislikedBy: [],
     },
     username: "wilsarah",
+    userId: "79Gksh9otl",
     createdAt: "2023-06-10T01:06:00+05:30",
     updatedAt: "2023-06-10T01:06:00+05:30",
     comments: [
@@ -649,6 +658,7 @@ export const posts = [
       dislikedBy: [],
     },
     username: "jacobmitch",
+    userId: "1T6Be1QpLm",
     createdAt: formatDate(),
     updatedAt: formatDate(),
     comments: [
@@ -686,6 +696,7 @@ export const posts = [
       dislikedBy: [],
     },
     username: "emilysmith",
+    userId: "t7cZfWIp-q",
     createdAt: "2023-03-17T01:06:00+05:30",
     updatedAt: "2023-03-17T01:06:00+05:30",
     comments: [],
@@ -734,6 +745,7 @@ export const posts = [
       dislikedBy: [],
     },
     username: "wilsarah",
+    userId: "79Gksh9otl",
     createdAt: formatDate(),
     updatedAt: formatDate(),
     comments: [
@@ -778,6 +790,7 @@ export const posts = [
       dislikedBy: [],
     },
     username: "jacobmitch",
+    userId: "1T6Be1QpLm",
     createdAt: "2022-11-02T01:06:00+05:30",
     updatedAt: "2022-11-02T01:06:00+05:30",
     comments: [],
@@ -810,6 +823,7 @@ export const posts = [
       dislikedBy: [],
     },
     username: "emilysmith",
+    userId: "t7cZfWIp-q",
     createdAt: "2023-06-25T01:06:00+05:30",
     updatedAt: "2023-06-25T01:06:00+05:30",
     comments: [],
@@ -833,6 +847,7 @@ export const posts = [
       dislikedBy: [],
     },
     username: "adityaj",
+    userId: "LCrc9f0Zl0",
     createdAt: "2023-06-17T01:06:00+05:30",
     updatedAt: "2023-06-17T01:06:00+05:30",
     comments: [
@@ -879,6 +894,7 @@ export const posts = [
       dislikedBy: [],
     },
     username: "rohaaan",
+    userId: "o5gzWjEeX_",
     createdAt: formatDate(),
     updatedAt: formatDate(),
     comments: [],
@@ -901,6 +917,7 @@ export const posts = [
       dislikedBy: [],
     },
     username: "imkriti",
+    userId: "M1NR81Bzlz",
     createdAt: formatDate(),
     updatedAt: formatDate(),
     comments: [
@@ -962,6 +979,7 @@ export const posts = [
       dislikedBy: [],
     },
     username: "aryan987",
+    userId: "1NR81Bzmuh",
     createdAt: "2023-01-27T01:06:00+05:30",
     updatedAt: "2023-01-27T01:06:00+05:30",
     comments: [],
@@ -1019,6 +1037,7 @@ export const posts = [
       dislikedBy: [],
     },
     username: "jamesmurf",
+    userId: "ab8zWjEeXd",
     createdAt: "2021-06-07T01:06:00+05:30",
     updatedAt: "2021-06-07T01:06:00+05:30",
     comments: [],
@@ -1056,6 +1075,7 @@ export const posts = [
       dislikedBy: [],
     },
     username: "avaturn",
+    userId: "M1NR81Bert",
     createdAt: "2021-08-23T01:06:00+05:30",
     updatedAt: "2021-08-23T01:06:00+05:30",
     comments: [
