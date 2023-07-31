@@ -1,22 +1,29 @@
-import React, { useEffect, useId, useState } from "react";
+import React, { useEffect } from "react";
 
 import { useParams } from "react-router";
-import { getUserByUsernameService } from "../../services/appServices/usersService";
+
 import { Following, Loader, Posts, ProfileCard, Tabs } from "../../components";
 import { usePost, useUser } from "../../context";
+import EditUserProfile from "../../components/EditUserProfile/EditUserPofile";
 
 const Profile = () => {
   const { userId } = useParams();
-  const { user, getUserByUserId, isLoading } = useUser();
+  const { user, getUserByUserId, isLoading, users, isEditProfileModalOpen } =
+    useUser();
+
   const { posts } = usePost();
+
   useEffect(() => {
     getUserByUserId(userId);
-  }, [userId]);
+  }, [userId, users]);
 
-  const userPosts = posts.filter(({ username }) => username === user?.username);
+  const userPosts = posts?.filter(
+    ({ username }) => username === user?.username
+  );
 
-  const { following, followers } = user ?? {};
-  console.log({ followers, following });
+  const { following, followers } =
+    users?.find(({ _id }) => _id === user?._id) ?? {};
+
   return (
     <div>
       {isLoading && <Loader />}
@@ -28,6 +35,7 @@ const Profile = () => {
             followers={<Following users={followers} />}
             following={<Following isTypeFollowing users={following} />}
           />
+          {isEditProfileModalOpen && <EditUserProfile />}
         </>
       )}
     </div>

@@ -7,11 +7,16 @@ const ProfileCard = ({ user }) => {
   const { username, name, profilePic, bio, followers, following, _id } =
     user ?? {};
   const { currentUser, logoutHandler } = useAuth();
-  const { followUserHandler, unfollowUserHandler } = useUser();
+  const { followUserHandler, unfollowUserHandler, users, openEditUserModal } =
+    useUser();
 
-  const isFollowedByCurrentUser = user?.followers
-    ?.map(({ follower }) => follower)
+  const isFollowedByCurrentUser = users
+    ?.find(({ _id }) => _id === user?._id)
+    ?.followers?.map(({ username }) => username)
     ?.includes(currentUser.username);
+  // const isFollowedByCurrentUser = user?.followers
+  //   ?.map(({ follower }) => follower)
+  //   ?.includes(currentUser.username);
 
   const handleLogoutBtn = () => {
     logoutHandler();
@@ -25,16 +30,21 @@ const ProfileCard = ({ user }) => {
         <div className="profile-photo">
           <img src={profilePic} alt="profile" />
         </div>
-        {currentUser._id === _id && (
+        {currentUser?._id === _id && (
           <div className="action-btn">
-            <button className="btn btn-primary btn-small">Edit Profile</button>
+            <button
+              className="btn btn-primary btn-small"
+              onClick={openEditUserModal}
+            >
+              Edit Profile
+            </button>
             <button className="btn btn-small" onClick={handleLogoutBtn}>
               logout
             </button>
           </div>
         )}
 
-        {currentUser._id !== _id && !isFollowedByCurrentUser && (
+        {currentUser?._id !== _id && !isFollowedByCurrentUser && (
           <button
             className="btn btn-primary btn-small following-btn"
             onClick={handleFollowBtn}
@@ -45,7 +55,7 @@ const ProfileCard = ({ user }) => {
             </span>
           </button>
         )}
-        {currentUser._id !== _id && isFollowedByCurrentUser && (
+        {currentUser?._id !== _id && isFollowedByCurrentUser && (
           <button
             className="btn btn-secondary btn-small following-btn"
             onClick={handleUnfollowBtn}

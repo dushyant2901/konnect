@@ -17,6 +17,7 @@ export const actionTypes = {
   REMOVE_FOLLOWER: "REMOVE_FOLLOWER",
   SEARCH_USER: "SEARCH_USER",
   SORT_BY: "SORT_BY",
+  EDIT_USER: "EDIT_USER",
 };
 
 export const guestLoginDetails = {

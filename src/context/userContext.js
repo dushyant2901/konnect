@@ -17,6 +17,7 @@ import {
   getAllUsersService,
   getUserByUserIdService,
   unfollowUserService,
+  editUserProfileService,
 } from "../services/appServices/usersService";
 import { actionTypes } from "../utils/constants";
 import { useAuth } from "./authContext";
@@ -32,6 +33,7 @@ const {
   REMOVE_FOLLOWING,
   REMOVE_FOLLOWER,
   SEARCH_USER,
+  EDIT_USER,
 } = actionTypes;
 
 const initialUserState = {
@@ -46,7 +48,8 @@ const UserContext = createContext();
 const UserProvider = ({ children }) => {
   const [userState, userDispatch] = useReducer(userReducer, initialUserState);
   const [isLoading, setIsLoading] = useState(false);
-  const { token, currentUser } = useAuth();
+  const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
+  const { token, currentUser, setCurrentUser } = useAuth();
   const getAllUsers = async () => {
     setIsLoading(true);
     try {
@@ -80,6 +83,7 @@ const UserProvider = ({ children }) => {
       setIsLoading(false);
     }
   };
+
   const getAllBookmarks = async () => {
     setIsLoading(true);
     try {
@@ -96,6 +100,7 @@ const UserProvider = ({ children }) => {
       setIsLoading(false);
     }
   };
+
   const addBookmarkHandler = async (postId) => {
     try {
       const {
@@ -118,6 +123,7 @@ const UserProvider = ({ children }) => {
       }
     }
   };
+
   const removeBookmarkHandler = async (postId) => {
     try {
       const {
@@ -142,34 +148,20 @@ const UserProvider = ({ children }) => {
   };
 
   const followUserHandler = async (followUserId) => {
-    console.log({ followUserId });
     try {
       const {
         status,
         data: { user, followUser },
       } = await followUserService(followUserId, token);
-      console.log({ user, followUser });
-      const _followUser = {
-        _id: followUser._id,
-        username: followUser.username,
-        name: followUser.name,
-        profilePic: followUser.profilePic,
-      };
-      const _user = {
-        _id: user._id,
-        username: user.username,
-        name: user.name,
-        profilePic: user.profilePic,
-      };
+
       if (status === 200 || status === 201) {
         userDispatch({
           type: ADD_FOLLOWING,
-          // payload: { _followUser, _user },
-          payload: { followUser, user },
+          payload: { user },
         });
         userDispatch({
           type: ADD_FOLLOWER,
-          payload: { user, followUser },
+          payload: { followUser },
         });
         toast.success(`Followed @${followUser.username}`);
       }
@@ -183,27 +175,44 @@ const UserProvider = ({ children }) => {
     try {
       const {
         status,
-        data: { user, followUser: unfollowedUser },
+        data: { user, followUser },
       } = await unfollowUserService(unfollowUserId, token);
 
-      const _unfollowedUser = {
-        _id: unfollowedUser._id,
-        username: unfollowedUser.username,
-        name: unfollowedUser.name,
-        profilePic: unfollowedUser.profilePic,
-      };
-
       if (status === 200 || status === 201) {
-        userDispatch({ type: REMOVE_FOLLOWING, payload: user });
+        userDispatch({ type: REMOVE_FOLLOWING, payload: { user } });
         userDispatch({
           type: REMOVE_FOLLOWER,
-          payload: unfollowedUser,
+          payload: { followUser },
         });
-        toast.success(`Unfollowed @${unfollowedUser.username}`);
+        toast.success(`Unfollowed @${followUser.username}`);
       }
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong.");
+    }
+  };
+  const editUserProfileHandler = async (editInput) => {
+    setIsLoading(true);
+    try {
+      const {
+        status,
+        data: { user },
+      } = await editUserProfileService(editInput, token);
+      if (status === 201) {
+        userDispatch({ type: EDIT_USER, payload: user });
+        setCurrentUser({
+          ...currentUser,
+          name: user?.name,
+          username: user?.username,
+        });
+        userDispatch({ type: GET_SINGLE_USER, payload: user });
+        toast.success("Updated profile successfully!");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -215,11 +224,16 @@ const UserProvider = ({ children }) => {
     userState.users.filter(({ username }) =>
       username.toLowerCase().includes(userState.searchInput.toLowerCase())
     );
-  console.log({ searchedUsers });
+
+  const openEditUserModal = () => setIsEditProfileModalOpen(true);
+
+  const closeEditUserModal = () => setIsEditProfileModalOpen(false);
+
   useEffect(() => {
     getAllBookmarks();
     getAllUsers();
   }, [currentUser]);
+
   return (
     <UserContext.Provider
       value={{
@@ -232,7 +246,11 @@ const UserProvider = ({ children }) => {
         followUserHandler,
         unfollowUserHandler,
         searchInputHandler,
+        editUserProfileHandler,
         searchedUsers,
+        isEditProfileModalOpen,
+        openEditUserModal,
+        closeEditUserModal,
       }}
     >
       {children}
