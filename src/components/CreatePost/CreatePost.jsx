@@ -1,27 +1,33 @@
 import React, { useState } from "react";
 import "./CreatePost.css";
 import { usePost } from "../..";
+import { toast } from "react-hot-toast";
+
 const CreatePost = () => {
   const { createPostHandler } = usePost();
   const [postDetails, setPostDetails] = useState({
     content: "",
   });
+
   const handlePostDetails = (e) => {
     const { name, value } = e.target;
     setPostDetails((prev) => ({ ...prev, [name]: value }));
   };
+
   const handlePostBtn = (e) => {
     e.preventDefault();
-    // handle empty create post
+    if (!postDetails.content) {
+      toast.error("Empty Values Not Allowed!");
+      return;
+    }
     createPostHandler(postDetails);
     setPostDetails(() => ({ content: "" }));
   };
+
   return (
     <>
       <form className="form create-post-form">
         <div className="form-row">
-          {/* <label htmlFor="username" className="form-label">
-          </label> */}
           <textarea
             type="text"
             name="content"

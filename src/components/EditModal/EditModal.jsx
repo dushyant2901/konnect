@@ -3,6 +3,7 @@ import "./EditModal.css";
 import { MdClose } from "react-icons/md";
 import { usePost } from "../../context";
 import Loader from "../Loader/Loader";
+import { toast } from "react-hot-toast";
 
 const EditModal = () => {
   const {
@@ -35,7 +36,10 @@ const EditModal = () => {
 
   const handlePostBtn = (e) => {
     e.preventDefault();
-    // handle empty create post
+    if (!postDetails.content) {
+      toast.error("Post can't be empty!");
+      return;
+    }
     editPostHandler(editId, { ...postDetails });
     setPostDetails(() => ({ content: "" }));
     closeEditModal();
