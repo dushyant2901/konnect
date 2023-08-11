@@ -8,7 +8,8 @@ import Sort from "../Sort/Sort";
 
 const Posts = ({ posts = [] }) => {
   const { isEditModalOpen, isLoading, sortBy } = usePost();
-  let sortedPosts = sortPosts(posts, sortBy);
+  const sortedPosts = sortPosts(posts, sortBy);
+
   return (
     <>
       <section className="posts">
@@ -16,7 +17,8 @@ const Posts = ({ posts = [] }) => {
         {!isLoading && sortedPosts.length === 0 && <h4>No Posts To Display</h4>}
         {!isLoading && sortedPosts.length > 0 && <Sort />}
         {!isLoading &&
-          sortedPosts?.map((post) => <Post key={post._id} {...post} />)}
+          sortedPosts.length > 0 &&
+          sortedPosts?.map((post) => <Post key={post?._id} {...post} />)}
       </section>
       {isEditModalOpen && !isLoading && <EditModal />}
     </>

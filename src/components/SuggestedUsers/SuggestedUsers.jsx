@@ -1,18 +1,14 @@
 import React from "react";
-
 import "./SuggestedUser.css";
 import { useUser, useAuth } from "../..";
 import UserCard from "../UserCard/UserCard";
+import { usersNotFollowedByUser } from "../../utils/helpers";
 
 const SuggestedUsers = () => {
   const { users } = useUser();
-  const { currentUser: user } = useAuth();
-  console.log({ users });
-  const nonFollowingUsers = users?.filter(
-    ({ followers, username }) =>
-      username !== user?.username &&
-      !followers?.some(({ username }) => username === user?.username)
-  );
+  const { currentUser } = useAuth();
+
+  const nonFollowingUsers = usersNotFollowedByUser(users, currentUser);
 
   return (
     <section className="suggested-users">

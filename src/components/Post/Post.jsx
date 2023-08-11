@@ -11,12 +11,16 @@ import {
   MdMoreVert,
 } from "react-icons/md";
 import "./Post.css";
-
 import { Link } from "react-router-dom";
 import { useUser, useAuth, usePost } from "../..";
+import {
+  isPostLikedByCurrentUser,
+  isPostBookmarked,
+  isPostUserCurrentUser,
+  getUserProfilePic,
+} from "../../utils/helpers";
 
 const Post = ({
-  profilePic,
   username,
   content,
   postImg,
@@ -30,11 +34,11 @@ const Post = ({
     likePostHandler,
     dislikePostHandler,
     deletePostHandler,
-    setEditId,
     openEditModal,
   } = usePost();
 
-  const { addBookmarkHandler, removeBookmarkHandler, bookmarks } = useUser();
+  const { addBookmarkHandler, removeBookmarkHandler, bookmarks, users } =
+    useUser();
 
   const { currentUser: user } = useAuth();
 
@@ -44,18 +48,16 @@ const Post = ({
 
   const { likeCount, likedBy } = likes ?? {};
 
+  const profilePic = getUserProfilePic(users, username);
+
   const handleReadMore = () => setReadMore(!readMore);
 
   const handleLikeBtn = () => {
-    console.log(_id);
     likePostHandler(_id);
   };
   const handleDislikeBtn = () => {
     dislikePostHandler(_id);
   };
-
-  const isPostLikedByCurrentUser = (user, likedByUsers) =>
-    likedByUsers?.some(({ username }) => username === user.username);
 
   const handleDeleteBtn = () => {
     setMoreOptions(false);
@@ -74,12 +76,6 @@ const Post = ({
   const handleMoreOptions = () => {
     setMoreOptions(true);
   };
-
-  const isPostUserCurrentUser = (username, user) => username === user?.username;
-  // const isPostBookmarked = (bookmarks, postId) =>
-  //   bookmarks?.some(({ _id }) => _id === postId);
-  const isPostBookmarked = (bookmarks, postId) =>
-    bookmarks?.some((id) => id === postId);
 
   // TODO: close more option son click outside
   return (

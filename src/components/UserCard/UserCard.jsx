@@ -3,17 +3,19 @@ import { MdAdd, MdRemove } from "react-icons/md";
 import "./UserCard.css";
 import { Link } from "react-router-dom";
 import { useAuth, useUser } from "../../context";
-const UserCard = ({ user, type }) => {
-  const { name, username, profilePic, _id } = user;
+import { getUserProfilePic, usersFollowedByUser } from "../../utils/helpers";
+
+const UserCard = ({ user }) => {
+  const { name, username, _id } = user;
   const { followUserHandler, unfollowUserHandler, users } = useUser();
   const { currentUser } = useAuth();
 
-  const usersFollowedByCurrentUser = users
-    ?.find(({ _id }) => currentUser._id === _id)
-    ?.following.map(({ username }) => username);
+  const usersFollowedByCurrentUser = usersFollowedByUser(users, currentUser);
 
   const isUserFollowedByCurrentUser =
     usersFollowedByCurrentUser?.includes(username);
+
+  const profilePic = getUserProfilePic(users, username);
 
   const handleFollowBtn = () => followUserHandler(_id);
 
@@ -34,34 +36,6 @@ const UserCard = ({ user, type }) => {
         </div>
       </div>
       <div className="action">
-        {/* {type === "following" ? (
-          <button
-            className="btn btn-primary btn-small"
-            onClick={handleUnfollowBtn}
-          >
-            Unfollow
-            <span className="icon">
-              <MdRemove />
-            </span>
-          </button>
-        ) : type === "followers" ? (
-          <button className="btn btn-primary btn-small" disabled>
-            Remove
-            <span className="icon">
-              <MdRemove />
-            </span>
-          </button>
-        ) : (
-          <button
-            className="btn btn-primary btn-small"
-            onClick={handleFollowBtn}
-          >
-            Follow
-            <span className="icon">
-              <MdAdd />
-            </span>
-          </button>
-        )} */}
         {isUserFollowedByCurrentUser ? (
           <button
             className="btn btn-secondary btn-small following-btn"

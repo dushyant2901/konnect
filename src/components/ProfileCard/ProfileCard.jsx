@@ -2,6 +2,7 @@ import React from "react";
 import "./ProfileCard.css";
 import { useAuth, useUser } from "../../context";
 import { MdAdd, MdRemove } from "react-icons/md";
+import { usersFollowedByUser } from "../../utils/helpers";
 
 const ProfileCard = ({ user }) => {
   const { username, name, profilePic, bio, followers, following, _id } =
@@ -10,13 +11,9 @@ const ProfileCard = ({ user }) => {
   const { followUserHandler, unfollowUserHandler, users, openEditUserModal } =
     useUser();
 
-  const isFollowedByCurrentUser = users
-    ?.find(({ _id }) => _id === user?._id)
-    ?.followers?.map(({ username }) => username)
-    ?.includes(currentUser.username);
-  // const isFollowedByCurrentUser = user?.followers
-  //   ?.map(({ follower }) => follower)
-  //   ?.includes(currentUser.username);
+  const isFollowedByCurrentUser = usersFollowedByUser(users, user)?.includes(
+    currentUser.username
+  );
 
   const handleLogoutBtn = () => {
     logoutHandler();
@@ -24,12 +21,13 @@ const ProfileCard = ({ user }) => {
   const handleFollowBtn = () => followUserHandler(_id);
 
   const handleUnfollowBtn = () => unfollowUserHandler(_id);
+
   return (
     <article className="profile-card">
       <header className="profile-card-header">
-        <div className="profile-photo">
+        <article className="profile-photo">
           <img src={profilePic} alt="profile" />
-        </div>
+        </article>
         {currentUser?._id === _id && (
           <div className="action-btn">
             <button

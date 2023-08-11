@@ -1,18 +1,15 @@
 import React from "react";
 import "./Home.css";
-import { CreatePost, Posts } from "../../components";
-
+import { CreatePost, Posts, Loader } from "../../components";
 import { useAuth, usePost, useUser } from "../..";
-import Loader from "../../components/Loader/Loader";
+import { usersFollowedByUser } from "../../utils/helpers";
+
 const Home = () => {
   const { posts, isLoading } = usePost();
   const { currentUser } = useAuth();
   const { users } = useUser();
 
-  const usersFollowedByCurrentUser = users
-    ?.find(({ _id }) => currentUser?._id === _id)
-    ?.following.map(({ username }) => username);
-
+  const usersFollowedByCurrentUser = usersFollowedByUser(users, currentUser);
   let _posts = posts?.filter(
     ({ username }) =>
       currentUser?.username === username ||
