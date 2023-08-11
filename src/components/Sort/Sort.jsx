@@ -1,8 +1,9 @@
 import React from "react";
 import "./Sort.css";
 import { usePost } from "../../context";
+import { sortTypes } from "../../utils/constants";
+
 const Sort = () => {
-  const sortTypes = ["Trending", "Latest", "Oldest"];
   const { sortTypeHandler, sortBy } = usePost();
   return (
     <section className="sort">
@@ -15,6 +16,7 @@ const Sort = () => {
             onClick={() => {
               sortTypeHandler(sortType);
             }}
+            key={sortType}
           >
             {sortType}
           </button>

@@ -24,3 +24,7 @@ export const guestLoginDetails = {
   password: "emily@123Smith",
   username: "emilysmith",
 };
+
+export const colorsArray = [252, 131, 360];
+
+export const sortTypes = ["Trending", "Latest", "Oldest"];

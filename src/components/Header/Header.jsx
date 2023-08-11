@@ -4,13 +4,15 @@ import { BiSearchAlt2 } from "react-icons/bi";
 import { MdLightMode, MdDarkMode } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth, useTheme, useUser } from "../../context";
-const colorsArray = [252, 102, 360];
+import { colorsArray } from "../../utils/constants";
+
 const Header = () => {
   const { currentUser } = useAuth();
   const { profilePic, _id } = currentUser ?? {};
   const { searchInput, searchInputHandler } = useUser();
   const { isDarkMode, switchDarkMode, changePrimaryColor, primaryColor } =
     useTheme();
+
   const navigate = useNavigate();
 
   const handleSearchInput = (e) => {
