@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import { useParams } from "react-router";
 
@@ -17,6 +17,12 @@ const Profile = () => {
     getUserByUserId(userId);
   }, [userId, users]);
 
+  const [activeTab, setActiveTab] = useState("posts");
+
+  const handleTabBtnClick = (e) => {
+    setActiveTab(e.target.textContent.toLowerCase());
+  };
+
   const userPosts = posts?.filter(
     ({ username }) => username === user?.username
   );
@@ -34,6 +40,8 @@ const Profile = () => {
             posts={<Posts posts={userPosts} />}
             followers={<Following users={followers} />}
             following={<Following isTypeFollowing users={following} />}
+            activeTab={activeTab}
+            handleTabBtnClick={handleTabBtnClick}
           />
           {isEditProfileModalOpen && <EditUserProfile />}
         </>
