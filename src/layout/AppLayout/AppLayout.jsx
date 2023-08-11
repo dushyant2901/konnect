@@ -3,12 +3,12 @@ import { Outlet } from "react-router";
 import { Header, Loader, Navigation, SuggestedUsers } from "../../components";
 import "./AppLayout.css";
 import { useAuth } from "../../context";
+
 const AppLayout = () => {
   const { isLoading } = useAuth();
-  // const abc = true
+
   return (
     <>
-      {/* {abc && <Loader/>} */}
       {isLoading && <Loader />}
       {!isLoading && (
         <>

@@ -17,10 +17,13 @@ export const userReducer = (state, { type, payload }) => {
   switch (type) {
     case GET_ALL_USERS:
       return { ...state, users: payload };
+
     case GET_ALL_BOOKMARKS:
       return { ...state, bookmarks: payload };
+
     case ADD_BOOKMARK:
       return { ...state, bookmarks: payload };
+
     case REMOVE_BOOKMARK:
       return { ...state, bookmarks: payload };
 
@@ -30,15 +33,10 @@ export const userReducer = (state, { type, payload }) => {
     case ADD_FOLLOWER:
       return {
         ...state,
-        users: state.users?.map(
-          (user) =>
-            user.username === payload.followUser.username
-              ? { ...user, followers: payload.followUser.followers }
-              : user
-          // users: state.users?.map((user) =>
-          //   user.username === followedUser.username
-          //     ? { ...user, followers: [...user?.followers, followedByUser] }
-          //     : user
+        users: state.users?.map((user) =>
+          user.username === payload.followUser.username
+            ? { ...user, followers: payload.followUser.followers }
+            : user
         ),
       };
 
@@ -50,27 +48,12 @@ export const userReducer = (state, { type, payload }) => {
             ? {
                 ...user,
                 following: payload.user.following,
-                // following: [...user.following, { ...followUser }],
               }
             : user
         ),
-        // user: {
-        //   ...state.user,
-        //   following: currentUser.following,
-        //   // following: [...state?.user?.following, { ...followUser }],
-        // },
       };
     case REMOVE_FOLLOWER:
       return {
-        // ...state,
-        // users: state.users?.map((user) =>
-        //   user.username === payload.unfollowedUser.username
-        //     ? {
-        //         ...user,
-        //         followers: payload.unfollowedUser.followers,
-        //       }
-        //     : user
-
         ...state,
         users: state.users?.map((user) =>
           user.username === payload.followUser.username
@@ -81,31 +64,19 @@ export const userReducer = (state, { type, payload }) => {
     case REMOVE_FOLLOWING:
       return {
         ...state,
-        users: state.users?.map(
-          (user) =>
-            user.username === payload.user.username
-              ? {
-                  ...user,
-                  following: payload.user.following,
-                }
-              : user
-          // ...state,
-          // users: state.users?.map((user) =>
-          //   user.username === payload.user.username
-          //     ? {
-          //         ...user,
-          //         following: payload.user.following,
-          //       }
-          //     : user
+        users: state.users?.map((user) =>
+          user.username === payload.user.username
+            ? {
+                ...user,
+                following: payload.user.following,
+              }
+            : user
         ),
-        // user: {
-        //   ...state.user,
-        //   following: payload.following,
-        //   // following: [...state?.user?.following, { ...followUser }],
-        // },
       };
+
     case SEARCH_USER:
       return { ...state, searchInput: payload };
+
     case EDIT_USER:
       return {
         ...state,
@@ -113,6 +84,7 @@ export const userReducer = (state, { type, payload }) => {
           payload.user?._id === user._id ? payload.user : user
         ),
       };
+
     default:
       return state;
   }

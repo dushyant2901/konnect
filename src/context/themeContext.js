@@ -20,7 +20,6 @@ const ThemeProvider = ({ children }) => {
   }, [isDarkTheme]);
 
   useEffect(() => {
-    console.log({ primaryColor });
     switch (primaryColor) {
       case 252:
         document.documentElement.classList.remove("green");
@@ -28,7 +27,7 @@ const ThemeProvider = ({ children }) => {
         document.documentElement.classList.add("purple");
         break;
 
-      case 102:
+      case 131:
         document.documentElement.classList.remove("red");
         document.documentElement.classList.remove("purple");
         document.documentElement.classList.add("green");

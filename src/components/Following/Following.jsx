@@ -1,6 +1,7 @@
 import React from "react";
 import UserCard from "../UserCard/UserCard";
 import "./Following.css";
+
 const Following = ({ users = [], isTypeFollowing }) => {
   return (
     <section className="following">
