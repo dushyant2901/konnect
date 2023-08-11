@@ -1,30 +1,29 @@
 import React, { useEffect, useState } from "react";
 import "./EditUserProfile.css";
 import { MdClose } from "react-icons/md";
-import { useAuth, usePost, useUser } from "../../context";
+import { useAuth, useUser } from "../../context";
 import Loader from "../Loader/Loader";
+import AvatarModal from "../AvatarModal/AvatarModal";
+
+import { toast } from "react-hot-toast";
 
 const EditUserProfile = () => {
   const { user, editUserProfileHandler, isLoading, closeEditUserModal } =
     useUser();
   const { currentUser } = useAuth();
   const [userDetails, setUserDetails] = useState({});
-
-  //   const getUserProfile = (userId) => users?.find(({ _id }) => _id === userId);
-  //   useEffect(() => {
-  //     setUserDetails(getUserProfile(editUserId));
-  //   }, [editUserId]);
+  const [isAvatarModalOpen, setIsAvatarModalOpen] = useState(false);
 
   useEffect(() => {
     if (user?._id !== currentUser?._id) return;
     setUserDetails({
       name: user?.name,
       username: user?.username,
-      profileImg: user?.postImg,
+      profilePic: user?.profilePic,
       bio: user?.bio,
       website: user?.website,
     });
-  }, [user]);
+  }, [user, currentUser]);
 
   const handleUserDetails = (e) => {
     const { name, value } = e.target;
@@ -33,7 +32,10 @@ const EditUserProfile = () => {
 
   const handleSubmitBtn = (e) => {
     e.preventDefault();
-    // handle empty create post
+    if (!userDetails.name) {
+      toast.error("Name can't be empty!");
+      return;
+    }
     editUserProfileHandler({ ...userDetails });
     setUserDetails(() => ({}));
     closeEditUserModal();
@@ -43,6 +45,14 @@ const EditUserProfile = () => {
     closeEditUserModal();
     setUserDetails({});
   };
+  const openAvatarModal = (e) => {
+    e.preventDefault();
+    setIsAvatarModalOpen(true);
+  };
+  const closeAvatarModal = () => setIsAvatarModalOpen(false);
+
+  const setAvatar = (avatar) =>
+    setUserDetails((prev) => ({ ...prev, profilePic: avatar }));
 
   return (
     <article className="edit-modal-wrapper">
@@ -53,51 +63,60 @@ const EditUserProfile = () => {
             <MdClose />
           </span>
           <h4 className="form-title">Edit User Profile</h4>
-          <div className="form-row">
-            <label htmlFor="name" className="form-label">
-              Name
-            </label>
-            <input
-              type="text"
-              placeholder="type here"
-              id="name"
-              name="name"
-              className="form-input"
-              value={userDetails?.name}
-              onChange={handleUserDetails}
-            />
+          <div className="form-row edit-avatar">
+            <article className="avatar profile-photo">
+              <img
+                src={userDetails?.profilePic}
+                alt="avatar"
+                className="image"
+              />
+            </article>
+            <button
+              className="btn btn-primary btn-small"
+              onClick={openAvatarModal}
+            >
+              Edit Avatar
+            </button>
           </div>
 
-          <div className="form-row">
-            <label htmlFor="username" className="form-label">
-              Username
-            </label>
-            <input
-              type="text"
-              placeholder="type here"
-              id="username"
-              name="username"
-              className="form-input"
-              value={userDetails?.username}
-              onChange={handleUserDetails}
+          {!isAvatarModalOpen && (
+            <div>
+              <div className="form-row">
+                <label htmlFor="bio" className="form-label">
+                  Bio
+                </label>
+                <input
+                  type="bio"
+                  id="bio"
+                  name="bio"
+                  className="form-input"
+                  placeholder="Enter your bio"
+                  value={userDetails?.bio}
+                  onChange={handleUserDetails}
+                />
+              </div>
+              <div className="form-row">
+                <label htmlFor="portfolio-url" className="form-label">
+                  Portfolio-url
+                </label>
+                <input
+                  type="text"
+                  id="portfolio-url"
+                  name="website"
+                  className="form-input"
+                  placeholder="Enter your portfolio-url"
+                  value={userDetails?.website}
+                  onChange={handleUserDetails}
+                />
+              </div>
+            </div>
+          )}
+          {isAvatarModalOpen && (
+            <AvatarModal
+              closeAvatarModal={closeAvatarModal}
+              setAvatar={setAvatar}
             />
-          </div>
-
-          <div className="form-row">
-            <label htmlFor="password" className="form-label">
-              Bio
-            </label>
-            <textarea
-              type="bio"
-              id="bio"
-              name="bio"
-              className="form-input"
-              placeholder="Enter your bio"
-              value={userDetails?.bio}
-              onChange={handleUserDetails}
-            />
-          </div>
-
+          )}
           <button
             className="btn btn-block btn-primary post-btn"
             onClick={handleSubmitBtn}
@@ -105,50 +124,6 @@ const EditUserProfile = () => {
             Submit
           </button>
         </form>
-
-        // <form className="edit-modal form">
-        //   <span className="close-modal-btn icon" onClick={handleCloseBtn}>
-        //     <MdClose />
-        //   </span>
-        //   <h3 className="form-title">Edit User</h3>
-        //   <div className="form-row">
-        //     <label htmlFor="name">Name : </label>
-        //     <input
-        //       type="text"
-        //       name="name"
-        //       id="name"
-
-        //     ></input>
-        //   </div>
-        //   <div className="form-row">
-        //     <label htmlFor="username">Username : </label>
-        //     <input
-        //       type="text"
-        //       name="username"
-        //       id="username"
-
-        //     ></input>
-        //   </div>
-
-        //   <div className="form-row">
-        //     <label htmlFor="bio">Bio : </label>
-        //     <textarea
-        //       name="bio"
-        //       id="bio"
-        //       value={userDetails?.bio}
-        //       onChange={handleUserDetails}
-        //     ></textarea>
-        //   </div>
-        //   <div className="img-container">
-        //     <img src={userDetails?.profileImg} alt="" className="img" />
-        //   </div>
-        //   <button
-        //     className="btn btn-block btn-primary post-btn"
-        //     onClick={handleSubmitBtn}
-        //   >
-        //     Submit
-        //   </button>
-        // </form>
       )}
     </article>
   );

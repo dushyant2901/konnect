@@ -204,6 +204,7 @@ const UserProvider = ({ children }) => {
           ...currentUser,
           name: user?.name,
           username: user?.username,
+          profilePic: user?.profilePic,
         });
         userDispatch({ type: GET_SINGLE_USER, payload: user });
         toast.success("Updated profile successfully!");

@@ -3,7 +3,7 @@ import { toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
 import "./SignUp.css";
 import { useAuth } from "../../";
-
+const defaultAvatar = "";
 const SignUp = () => {
   const [signUpDetails, setSignUpDetails] = useState({
     name: "",
@@ -28,7 +28,7 @@ const SignUp = () => {
       toast.error("Kindly fill all the fields!!");
       return;
     }
-    signUpHandler({ ...signUpDetails });
+    signUpHandler({ ...signUpDetails, profileImg: defaultAvatar });
   };
 
   return (
