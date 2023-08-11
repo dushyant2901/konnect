@@ -63,9 +63,9 @@ const AuthProvider = ({ children }) => {
 
       if (status === 201) {
         localStorage.setItem("token", encodedToken);
-        const { username, name, profileImg, _id } = createdUser;
+        const { username, name, profilePic, _id } = createdUser;
 
-        const currentUser = { username, name, profileImg, _id };
+        const currentUser = { username, name, profilePic, _id };
         setIsUserLoggedIn(true);
         localStorage.setItem("userData", JSON.stringify(currentUser));
         setToken(encodedToken);
@@ -101,9 +101,9 @@ const AuthProvider = ({ children }) => {
 
       if (status === 200) {
         localStorage.setItem("token", encodedToken);
-        const { username, name, profileImg, _id } = foundUser;
+        const { username, name, profilePic, _id } = foundUser;
 
-        const currentUser = { username, name, profileImg, _id };
+        const currentUser = { username, name, profilePic, _id };
 
         localStorage.setItem("userData", JSON.stringify(currentUser));
         setCurrentUser(currentUser);
