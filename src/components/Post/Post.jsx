@@ -18,7 +18,9 @@ import {
   isPostBookmarked,
   isPostUserCurrentUser,
   getUserProfilePic,
+  getPostDate,
 } from "../../utils/helpers";
+import { defaultAvatar } from "../../utils/constants";
 
 const Post = ({
   username,
@@ -48,7 +50,7 @@ const Post = ({
 
   const { likeCount, likedBy } = likes ?? {};
 
-  const profilePic = getUserProfilePic(users, username);
+  const profilePic = getUserProfilePic(users, username) ?? defaultAvatar;
 
   const handleReadMore = () => setReadMore(!readMore);
 
@@ -89,7 +91,7 @@ const Post = ({
           </Link>
           <div className="info">
             <h4>{username}</h4>
-            <small>10 min ago</small>
+            <small>{getPostDate(createdAt)}</small>
           </div>
         </div>
         {isPostUserCurrentUser(username, user) && (
