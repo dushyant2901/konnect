@@ -6,7 +6,7 @@ const ThemeProvider = ({ children }) => {
   const [isDarkTheme, setIsDarkTheme] = useState(
     localStorage.getItem("theme") === "dark"
   );
-  const [primaryColor, setPrimaryColor] = useState(102);
+  const [primaryColor, setPrimaryColor] = useState(252);
   useEffect(() => {
     localStorage.setItem("theme", `${isDarkTheme ? "dark" : "light"}`);
     const activeTheme = localStorage.getItem("theme");
