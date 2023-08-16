@@ -6,6 +6,7 @@ import Loader from "../Loader/Loader";
 import AvatarModal from "../AvatarModal/AvatarModal";
 
 import { toast } from "react-hot-toast";
+import { defaultAvatar } from "../../utils/constants";
 
 const EditUserProfile = () => {
   const { user, editUserProfileHandler, isLoading, closeEditUserModal } =
@@ -66,7 +67,7 @@ const EditUserProfile = () => {
           <div className="form-row edit-avatar">
             <article className="avatar profile-photo">
               <img
-                src={userDetails?.profilePic}
+                src={userDetails?.profilePic ?? defaultAvatar}
                 alt="avatar"
                 className="image"
               />

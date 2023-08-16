@@ -3,10 +3,20 @@ import "./ProfileCard.css";
 import { useAuth, useUser } from "../../context";
 import { MdAdd, MdRemove } from "react-icons/md";
 import { usersFollowingUser } from "../../utils/helpers";
+import { defaultAvatar } from "../../utils/constants";
 
 const ProfileCard = ({ user }) => {
-  const { username, name, profilePic, bio, followers, following, _id } =
-    user ?? {};
+  const {
+    username,
+    name,
+    profilePic,
+    bio,
+    followers,
+    following,
+    _id,
+    website,
+    createdAt,
+  } = user ?? {};
   const { currentUser, logoutHandler } = useAuth();
   const { followUserHandler, unfollowUserHandler, users, openEditUserModal } =
     useUser();
@@ -26,7 +36,7 @@ const ProfileCard = ({ user }) => {
     <article className="profile-card">
       <header className="profile-card-header">
         <article className="profile-photo">
-          <img src={profilePic} alt="profile" />
+          <img src={profilePic ?? defaultAvatar} alt="profile" />
         </article>
         {currentUser?._id === _id && (
           <div className="action-btn">
@@ -70,8 +80,8 @@ const ProfileCard = ({ user }) => {
         <small>{username}</small>
       </div>
       <p className="user-bio">{bio}</p>
-      <a href="">portfolio link</a>
-      <p>created at</p>
+      <a href={website}>Portfolio: {website}</a>
+      <p>created at: {new Date(createdAt).toLocaleDateString()} </p>
       <div className="following-info">
         <p>{followers?.length} followers</p>
         <p>{following?.length} following</p>

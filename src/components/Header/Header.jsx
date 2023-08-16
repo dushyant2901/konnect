@@ -4,12 +4,13 @@ import { BiSearchAlt2 } from "react-icons/bi";
 import { MdLightMode, MdDarkMode } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth, useTheme, useUser } from "../../context";
-import { colorsArray } from "../../utils/constants";
+import { colorsArray, defaultAvatar } from "../../utils/constants";
+import { getUserProfilePic } from "../../utils/helpers";
 
 const Header = () => {
   const { currentUser } = useAuth();
-  const { profilePic, _id } = currentUser ?? {};
-  const { searchInput, searchInputHandler } = useUser();
+  const { _id } = currentUser ?? {};
+  const { searchInput, searchInputHandler, users } = useUser();
   const { isDarkMode, switchDarkMode, changePrimaryColor, primaryColor } =
     useTheme();
 
@@ -19,7 +20,8 @@ const Header = () => {
     navigate("/search");
     searchInputHandler(e.target.value);
   };
-
+  const profilePic =
+    getUserProfilePic(users, currentUser?.username) ?? defaultAvatar;
   return (
     <header className="header">
       <div className="container">

@@ -28,3 +28,4 @@ export const guestLoginDetails = {
 export const colorsArray = [252, 131, 360];
 
 export const sortTypes = ["Trending", "Latest", "Oldest"];
+export const defaultAvatar = "https://i.imgur.com/07fk2I9.png";

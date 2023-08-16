@@ -4,6 +4,7 @@ import "./UserCard.css";
 import { Link } from "react-router-dom";
 import { useAuth, useUser } from "../../context";
 import { getUserProfilePic, usersFollowedByUser } from "../../utils/helpers";
+import { defaultAvatar } from "../../utils/constants";
 
 const UserCard = ({ user }) => {
   const { name, username, _id } = user;
@@ -15,7 +16,7 @@ const UserCard = ({ user }) => {
   const isUserFollowedByCurrentUser =
     usersFollowedByCurrentUser?.includes(username);
 
-  const profilePic = getUserProfilePic(users, username);
+  const profilePic = getUserProfilePic(users, username) ?? defaultAvatar;
 
   const handleFollowBtn = () => followUserHandler(_id);
 
