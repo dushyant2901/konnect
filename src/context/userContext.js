@@ -230,6 +230,8 @@ const UserProvider = ({ children }) => {
 
   const closeEditUserModal = () => setIsEditProfileModalOpen(false);
 
+  const resetUser = () => userDispatch({ type: "RESET_USER" });
+
   useEffect(() => {
     getAllBookmarks();
     getAllUsers();
@@ -252,6 +254,7 @@ const UserProvider = ({ children }) => {
         isEditProfileModalOpen,
         openEditUserModal,
         closeEditUserModal,
+        resetUser
       }}
     >
       {children}

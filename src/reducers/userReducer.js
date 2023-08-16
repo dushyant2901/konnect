@@ -84,7 +84,11 @@ export const userReducer = (state, { type, payload }) => {
           payload.user?._id === user._id ? payload.user : user
         ),
       };
-
+    case "RESET_USER":
+      return {
+        ...state,
+        user: {},
+      };
     default:
       return state;
   }

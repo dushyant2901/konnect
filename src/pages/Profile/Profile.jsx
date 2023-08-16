@@ -8,13 +8,22 @@ import EditUserProfile from "../../components/EditUserProfile/EditUserPofile";
 
 const Profile = () => {
   const { userId } = useParams();
-  const { user, getUserByUserId, isLoading, users, isEditProfileModalOpen } =
-    useUser();
+  const {
+    user,
+    getUserByUserId,
+    isLoading,
+    users,
+    isEditProfileModalOpen,
+    resetUser,
+  } = useUser();
 
   const { posts } = usePost();
 
   useEffect(() => {
     getUserByUserId(userId);
+    return () => {
+      resetUser();
+    };
   }, [userId, users]);
 
   const [activeTab, setActiveTab] = useState("posts");
