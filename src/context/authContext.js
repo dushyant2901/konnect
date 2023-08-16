@@ -12,6 +12,7 @@ const AuthProvider = ({ children }) => {
   const location = useLocation();
 
   const localStorageToken = localStorage.getItem("token");
+  console.log({ localStorageToken });
   const [token, setToken] = useState(localStorageToken || "");
   const [currentUser, setCurrentUser] = useState(null);
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
@@ -19,9 +20,10 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     setIsLoading(true);
     const currentLoggedInUser = JSON.parse(localStorage.getItem("userData"));
+    console.log({ currentLoggedInUser });
     if (currentLoggedInUser) {
       setIsUserLoggedIn(true);
-      setCurrentUser(() => currentLoggedInUser);
+      setCurrentUser(currentLoggedInUser);
       navigate("/");
 
       // const localStorageToken = localStorage.getItem("token");
@@ -63,14 +65,14 @@ const AuthProvider = ({ children }) => {
 
       if (status === 201) {
         localStorage.setItem("token", encodedToken);
-        const { username, name, profilePic, _id } = createdUser;
-
+        const { username, name, profilePic, _id } = createdUser ?? {};
+        console.log({ createdUser });
         const currentUser = { username, name, profilePic, _id };
-        setIsUserLoggedIn(true);
         localStorage.setItem("userData", JSON.stringify(currentUser));
         setToken(encodedToken);
+        setIsUserLoggedIn(true);
         setCurrentUser(currentUser);
-        toast.success(`Hi, ${createdUser.firstName}!`, {
+        toast.success(`Hi, ${createdUser.name}!`, {
           icon: "👋",
         });
         console.log({ createdUser });
