@@ -47,8 +47,10 @@ const Profile = () => {
           <ProfileCard user={user} />
           <Tabs
             posts={<Posts posts={userPosts} />}
-            followers={<Following users={followers} />}
-            following={<Following isTypeFollowing users={following} />}
+            followers={<Following users={followers} user={user} />}
+            following={
+              <Following isTypeFollowing users={following} user={user} />
+            }
             activeTab={activeTab}
             handleTabBtnClick={handleTabBtnClick}
           />
