@@ -176,6 +176,7 @@ export const users = [
     website: "https://emilysmith.tech",
     createdAt: "2019-02-02T01:06:00+05:30",
     updatedAt: formatDate(),
+    profilePic: "https://i.imgur.com/3koLVx8.png",
     following: [
       {
         _id: "LCrc9f0Zl0",
@@ -221,6 +222,7 @@ export const users = [
     website: "https://sarahwilson.com",
     createdAt: "2018-06-12T01:06:00+05:30",
     updatedAt: formatDate(),
+    profilePic: "https://i.imgur.com/usR4cPn.png",
     following: [
       {
         _id: "1T6Be1QpLm",
@@ -246,6 +248,7 @@ export const users = [
     website: "https://jacobmitchell.com",
     createdAt: "2018-11-26T01:06:00+05:30",
     updatedAt: formatDate(),
+    profilePic: "https://i.imgur.com/dGLRy0M.png",
     following: [
       {
         _id: "ab8zWjEeXd",
@@ -276,6 +279,7 @@ export const users = [
     website: "https://adityajoshi.com",
     createdAt: "2017-05-15T01:06:00+05:30",
     updatedAt: formatDate(),
+    profilePic: "https://i.imgur.com/hRwELzq.png",
     following: [],
     followers: [
       {
@@ -295,6 +299,7 @@ export const users = [
     website: "https://rohan-roy.com",
     createdAt: "2019-08-19T01:06:00+05:30",
     updatedAt: formatDate(),
+    profilePic: "https://i.imgur.com/07fk2I9.png",
     following: [],
     followers: [
       {
@@ -314,6 +319,7 @@ export const users = [
     website: "https://kriti-desai.com",
     createdAt: "2021-01-11T01:06:00+05:30",
     updatedAt: formatDate(),
+    profilePic: "https://i.imgur.com/Rytba1u.png",
     following: [],
     followers: [],
     bookmarks: [],
@@ -327,6 +333,7 @@ export const users = [
     website: "https://oliviadraws.com",
     createdAt: "2020-01-22T01:06:00+05:30",
     updatedAt: formatDate(),
+    profilePic: "https://i.imgur.com/07fk2I9.png",
     following: [
       {
         _id: "t7cZfWIp-q",
@@ -346,6 +353,7 @@ export const users = [
     website: "https://jamesmurf.com",
     createdAt: "2018-05-02T01:06:00+05:30",
     updatedAt: formatDate(),
+    profilePic: "https://i.imgur.com/dGLRy0M.png",
     following: [
       {
         _id: "t7cZfWIp-q",
@@ -371,6 +379,7 @@ export const users = [
     website: "https://turnerava.com",
     createdAt: "2020-10-10T01:06:00+05:30",
     updatedAt: formatDate(),
+    profilePic: "https://i.imgur.com/dGLRy0M.png",
     following: [],
     followers: [],
     bookmarks: [],
@@ -384,6 +393,7 @@ export const users = [
     website: "https://aryanpatel.com",
     createdAt: "2019-04-15T01:06:00+05:30",
     updatedAt: formatDate(),
+    profilePic: "https://i.imgur.com/hRwELzq.png",
     following: [],
     followers: [],
     bookmarks: [],
@@ -396,6 +406,7 @@ export const users = [
     website: "https://asdpatel.com",
     createdAt: "2019-04-15T01:06:00+05:30",
     updatedAt: formatDate(),
+    profilePic: "https://i.imgur.com/usR4cPn.png",
     following: [],
     followers: [],
     bookmarks: [],
