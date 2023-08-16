@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
 import "./Login.css";
@@ -87,7 +87,7 @@ const Login = () => {
           </button>
         </div>
         <p className="text sign-up-text">
-          Don't have an account? <Link to="/auth/signup">Sigup now</Link>
+          Don't have an account? <Link to="/auth/signup">Signup now</Link>
         </p>
       </form>
     </article>

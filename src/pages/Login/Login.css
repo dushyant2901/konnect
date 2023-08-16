@@ -10,4 +10,6 @@
 }
 .sign-up-text a {
   color: var(--color-dark);
+  border-bottom: 1px solid var(--color-dark);
+  padding-bottom: 0.15rem;
 }

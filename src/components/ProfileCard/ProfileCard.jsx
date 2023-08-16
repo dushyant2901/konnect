@@ -75,16 +75,20 @@ const ProfileCard = ({ user }) => {
           </button>
         )}
       </header>
-      <div className="info">
-        <h4>{name}</h4>
-        <small>{username}</small>
-      </div>
-      <p className="user-bio">{bio}</p>
-      <a href={website}>Portfolio: {website}</a>
-      <p>created at: {new Date(createdAt).toLocaleDateString()} </p>
-      <div className="following-info">
-        <p>{followers?.length} followers</p>
-        <p>{following?.length} following</p>
+      <div className="profile-details">
+        <div className="info">
+          <h4>{name}</h4>
+          <small>{username}</small>
+        </div>
+        <p className="user-bio">{bio}</p>
+        <p className="portfolio">
+          Portfolio:<a href={website}> {website}</a>
+        </p>
+        <p>created at: {new Date(createdAt).toLocaleDateString()} </p>
+        <div className="following-info">
+          <p>{followers?.length} followers</p>
+          <p>{following?.length} following</p>
+        </div>
       </div>
     </article>
   );
