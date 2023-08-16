@@ -17,7 +17,7 @@ const Following = ({ users = [], isTypeFollowing, user }) => {
           </h4>
         ) : (
           <h4>
-            {isUserCurrentUser ? "You" : user.username}dont have any followers
+            {isUserCurrentUser ? "You" : user.username} dont have any followers
           </h4>
         ))}
       {users.length !== 0 &&
