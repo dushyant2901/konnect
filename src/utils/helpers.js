@@ -7,6 +7,10 @@ export const usersFollowedByUser = (users, user) =>
   users
     ?.find(({ _id }) => user?._id === _id)
     ?.following.map(({ username }) => username);
+export const usersFollowingUser = (users, user) =>
+  users
+    ?.find(({ _id }) => user?._id === _id)
+    ?.followers.map(({ username }) => username);
 
 export const usersNotFollowedByUser = (users, user) =>
   users?.filter(

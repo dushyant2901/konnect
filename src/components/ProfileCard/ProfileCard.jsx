@@ -2,7 +2,7 @@ import React from "react";
 import "./ProfileCard.css";
 import { useAuth, useUser } from "../../context";
 import { MdAdd, MdRemove } from "react-icons/md";
-import { usersFollowedByUser } from "../../utils/helpers";
+import { usersFollowingUser } from "../../utils/helpers";
 
 const ProfileCard = ({ user }) => {
   const { username, name, profilePic, bio, followers, following, _id } =
@@ -11,7 +11,7 @@ const ProfileCard = ({ user }) => {
   const { followUserHandler, unfollowUserHandler, users, openEditUserModal } =
     useUser();
 
-  const isFollowedByCurrentUser = usersFollowedByUser(users, user)?.includes(
+  const isFollowedByCurrentUser = usersFollowingUser(users, user)?.includes(
     currentUser.username
   );
 
