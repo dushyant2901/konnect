@@ -8,3 +8,6 @@
   display: flex;
   gap: 1rem;
 }
+.sign-up-text a {
+  color: var(--color-dark);
+}

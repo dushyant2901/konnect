@@ -4,3 +4,6 @@
   place-items: center;
   background: var(--color-light);
 }
+.login-text a {
+  color: var(--color-dark);
+}
